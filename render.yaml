@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: poc-radio-be-server
+    runtime: python
+    buildCommand: "echo ready"
+    startCommand: "python server.py"
