@@ -20,3 +20,37 @@ def get_radios():
         return [dict(row) for row in rows]
     finally:
         conn.close()
+
+
+class Handler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        path = urlparse(self.path).path
+
+        if path == "/api/radios":
+            try:
+                radios = get_radios()
+                data = json.dumps(radios).encode("utf-8")
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            except Exception as e:
+                data = json.dumps({"error": str(e)}).encode("utf-8")
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(data)
+            return
+
+        return super().do_GET()
+
+
+if __name__ == "__main__":
+    print(f"POC RADIO BE server gestart op poort {PORT}", flush=True)
+
+    server = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
+    server.serve_forever()
