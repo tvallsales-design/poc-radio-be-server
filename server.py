@@ -44,9 +44,9 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
                 self.wfile.write(data)
-                  return
+                    return
 
-        return super().do_GET()
+        return super().do_GET()      
 
 
 if __name__ == "__main__":
