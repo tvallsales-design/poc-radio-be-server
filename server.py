@@ -26,11 +26,11 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = urlparse(self.path).path
 
-        if path == "/api/radios":
-            try:
-                radios = get_radios()
-                data = json.dumps(radios).encode("utf-8")
-
+      
+if path in ("/api/radios", "/api/public/radios"):
+    try:
+        radios = get_radios()
+        data = json.dumps(radios).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")
