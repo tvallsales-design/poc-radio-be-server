@@ -1,1 +1,109 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Wie is online?</title><style>body{background:#061522;color:#fff;font:16px Arial}.p{max-width:800px;margin:30px auto;background:#0b2639;padding:25px;border-radius:15px}table{width:100%;border-collapse:collapse}td,th{padding:14px;border-bottom:1px solid #28506a;text-align:left}.on{color:#5de18a}.off{color:#ff6574}</style><div class=p><h1>POC RADIO BE</h1><h2>Wie is online?</h2><table><thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead><tbody id=r></tbody></table><p>IMEI, batterij en GPS worden niet openbaar getoond.</p></div><script>const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));async function l(){let a=await(await fetch('/api/public/radios')).json();r.innerHTML=a.length?a.map(x=>`<tr><td>${e(x.name)}</td><td class=${x.status==='online'?'on':'off'}>${x.status==='online'?'🟢 Online':'🔴 Offline'}</td><td>${e(x.last_seen||'-')}</td></tr>`).join(''):'<tr><td colspan=3>Nog geen leden.</td></tr>'}l();setInterval(l,15000)</script<img src="616338863_122119169199130837_2862670572946327472_n (1).jpg" alt="POC RADIO BE" style="display:block;max-width:260px;width:100%;height:auto;margin:25px auto;border-radius:12px;">></script><img src="616338863_122119169199130837_2862670572946327472_n (1).jpg" alt="POC RADIO BE" style="display:block;max-width:260px;width:100%;height:auto;margin:25px auto;border-radius:12px;">
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Wie is online?</title>
+
+<style>
+body{
+  background:#061522;
+  color:#fff;
+  font:16px Arial;
+}
+.p{
+  max-width:800px;
+  margin:30px auto;
+  background:#0b2639;
+  padding:25px;
+  border-radius:15px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+td,th{
+  padding:14px;
+  border-bottom:1px solid #28506a;
+  text-align:left;
+}
+.on{color:#5de18a}
+.off{color:#ff6574}
+
+.logo{
+  display:block;
+  max-width:260px;
+  width:100%;
+  height:auto;
+  margin:30px auto;
+  border-radius:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="p">
+  <h1>POC RADIO BE</h1>
+  <h2>Wie is online?</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Status</th>
+        <th>Laatst online</th>
+      </tr>
+    </thead>
+    <tbody id="r"></tbody>
+  </table>
+
+  <p>IMEI, batterij en GPS worden niet openbaar getoond.</p>
+</div>
+
+<img
+  src="616338863_122119169199130837_2862670572946327472_n (1).jpg"
+  alt="POC RADIO BE"
+  class="logo"
+>
+
+<script>
+const e = s => String(s ?? '').replace(
+  /[&<>"]/g,
+  c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;'
+  }[c])
+);
+
+async function laadRadios() {
+  try {
+    const response = await fetch('/api/public/radios');
+    const radios = await response.json();
+
+    document.getElementById('r').innerHTML = radios.length
+      ? radios.map(x => `
+        <tr>
+          <td>${e(x.name)}</td>
+          <td class="${x.status === 'online' ? 'on' : 'off'}">
+            ${x.status === 'online' ? '🟢 Online' : '🔴 Offline'}
+          </td>
+          <td>${e(x.last_seen || '-')}</td>
+        </tr>
+      `).join('')
+      : '<tr><td colspan="3">Nog geen leden.</td></tr>';
+
+  } catch (fout) {
+    document.getElementById('r').innerHTML =
+      '<tr><td colspan="3">Kan de radiolijst niet laden.</td></tr>';
+  }
+}
+
+laadRadios();
+setInterval(laadRadios, 15000);
+</script>
+
+</body>
+</html>
