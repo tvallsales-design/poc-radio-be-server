@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wie is online? - POC RADIO BE</title>
+<style>
+*{box-sizing:border-box}
+body{
+  background:#02080d;
+  color:#fff;
+  font:16px Arial,sans-serif;
+  margin:0;
+  padding:0 16px 40px;
+}
+.slogan{
+  text-align:center;
+  color:#5de1ff;
+  font-size:28px;
+  font-weight:bold;
+  margin:18px 0 25px;
+  text-shadow:0 0 12px rgba(93,225,255,.45);
+}
+.p{
+  max-width:1400px;
+  margin:0 auto;
+  background:linear-gradient(145deg,#061522,#0b2639);
+  padding:28px;
+  border:1px solid #1599cc;
+  border-radius:18px;
+  box-shadow:0 0 20px rgba(0,174,239,.20);
+}
+.bovenkant{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+  margin-bottom:25px;
+}
+.bovenlinks h1{
+  font-size:46px;
+  margin:0 0 10px;
+}
+.sub{
+  letter-spacing:3px;
+  color:#d8e7ef;
+  border-top:2px solid #20c9ff;
+  padding-top:12px;
+  margin:0 0 28px;
+}
+.bovenlinks h2{
+  font-size:34px;
+  margin:0 0 20px;
+}
+.banner-rechts{
+  width:100%;
+  max-height:360px;
+  object-fit:contain;
+  background:#000;
+  border:1px solid #1599cc;
+  border-radius:14px;
+  padding:8px;
+}
+.zoekvak{
+  width:100%;
+  max-width:520px;
+  padding:16px 18px;
+  border:1px solid #20c9ff;
+  border-radius:12px;
+  background:#04111b;
+  color:#fff;
+  font-size:17px;
+  outline:none;
+  box-shadow:0 0 10px rgba(32,201,255,.12);
+}
+.zoekvak:focus{box-shadow:0 0 14px rgba(32,201,255,.35)}
+.tables{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.tablebox{
+  border:1px solid #285f7a;
+  border-radius:14px;
+  overflow:hidden;
+  background:#071a28;
+}
+.tabletitle{
+  padding:16px 18px;
+  font-size:20px;
+  font-weight:bold;
+  border-bottom:1px solid #285f7a;
+}
+table{width:100%;border-collapse:collapse}
+td,th{
+  padding:14px;
+  border-bottom:1px solid #28506a;
+  text-align:left;
+}
+.on{color:#5de18a}
+.off{color:#ff6574}
+.privacy{
+  text-align:center;
+  color:#b8c9d3;
+  margin:24px 0 5px;
+}
+.chat{
+  margin-top:30px;
+  padding:22px;
+  background:#04111b;
+  border:1px solid #1599cc;
+  border-radius:15px;
+}
+.chat h2{
+  color:#5de1ff;
+  margin-top:0;
+}
+.chatberichten{
+  height:320px;
+  overflow-y:auto;
+  background:#071a28;
+  border:1px solid #28506a;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+}
+.bericht{
+  padding:10px;
+  margin-bottom:10px;
+  border-bottom:1px solid #28506a;
+}
+.berichtnaam{color:#5de18a;font-weight:bold}
+.tijd{color:#9bb3c3;font-size:12px;margin-left:8px}
+.chatvelden{
+  display:grid;
+  grid-template-columns:180px 1fr auto;
+  gap:10px;
+}
+.chatvelden input{
+  padding:13px;
+  border-radius:8px;
+  border:1px solid #28506a;
+  background:#071a28;
+  color:white;
+  font-size:16px;
+}
+.chatvelden button{
+  padding:13px 24px;
+  border:0;
+  border-radius:8px;
+  background:#5de18a;
+  color:#061522;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+.chatvelden button:hover{opacity:.9}
+.chatstatus{color:#ff6574;min-height:20px;margin-top:10px}
+
+@media(max-width:900px){
+  .bovenkant,.tables{grid-template-columns:1fr}
+  .bovenlinks h1{font-size:36px}
+  .bovenlinks h2{font-size:28px}
+  .chatvelden{grid-template-columns:1fr}
+  .slogan{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="slogan">ALWAYS CONNECTED BY POC RADIO BE</div>
+
+<div class="p">
+  <div class="bovenkant">
+    <div class="bovenlinks">
+      <h1>POC RADIO BE</h1>
+      <div class="sub">VERKOOP &nbsp;•&nbsp; VERHUUR &nbsp;•&nbsp; SERVICE &nbsp;•&nbsp; SUPPORT</div>
+      <h2>Wie is online?</h2>
+      <input type="text" id="zoek" class="zoekvak" placeholder="🔍 Zoek op naam..." autocomplete="off">
+    </div>
+    <img src="global-ptt.png" alt="GLOBAL-PTT POC radio's" class="banner-rechts">
+  </div>
+
+  <div class="tables">
+    <div class="tablebox">
+      <div class="tabletitle">🟢 Online</div>
+      <table>
+        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
+        <tbody id="r1"></tbody>
+      </table>
+    </div>
+    <div class="tablebox">
+      <div class="tabletitle">🔴 Offline</div>
+      <table>
+        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
+        <tbody id="r2"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="privacy">IMEI, batterij en GPS worden niet openbaar getoond.</p>
+
+  <div class="chat">
+    <h2>💬 POC RADIO BE Chat</h2>
+    <div id="chatberichten" class="chatberichten">Chat laden...</div>
+    <div class="chatvelden">
+      <input type="text" id="chatnaam" maxlength="40" placeholder="Naam / roepnaam">
+      <input type="text" id="chatbericht" maxlength="500" placeholder="Typ hier je bericht...">
+      <button onclick="verstuurBericht()">➤ Versturen</button>
+    </div>
+    <div id="chatstatus" class="chatstatus"></div>
+  </div>
+</div>
+
+<script>
+const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let alleRadios=[];
+
+function maakRijen(radios){
+  return radios.map(x=>`
+    <tr>
+      <td>${e(x.name)}</td>
+      <td class="${String(x.status).toLowerCase()==='online'?'on':'off'}">
+        ${String(x.status).toLowerCase()==='online'?'🟢 Online':'🔴 Offline'}
+      </td>
+      <td>${e(x.last_seen||'-')}</td>
+    </tr>`).join('');
+}
+
+function toonRadios(radios){
+  const online=radios.filter(x=>String(x.status).toLowerCase()==='online');
+  const offline=radios.filter(x=>String(x.status).toLowerCase()!=='online');
+
+  document.getElementById('r1').innerHTML=online.length
+    ? maakRijen(online)
+    : '<tr><td colspan="3">Geen online radio’s.</td></tr>';
+
+  document.getElementById('r2').innerHTML=offline.length
+    ? maakRijen(offline)
+    : '<tr><td colspan="3">Geen offline radio’s.</td></tr>';
+}
+
+async function laadRadios(){
+  try{
+    const response=await fetch('/api/public/radios');
+    if(!response.ok) throw new Error('HTTP '+response.status);
+    const radios=await response.json();
+    alleRadios=Array.isArray(radios)?radios:[];
+    zoekRadio();
+  }catch(fout){
+    document.getElementById('r1').innerHTML='<tr><td colspan="3">Kan de radiolijst niet laden.</td></tr>';
+    document.getElementById('r2').innerHTML='';
+  }
+}
+
+function zoekRadio(){
+  const zoektekst=document.getElementById('zoek').value.toLowerCase().trim();
+  const gevonden=!zoektekst?alleRadios:alleRadios.filter(radio=>
+    String(radio.name||'').toLowerCase().includes(zoektekst)
+  );
+  toonRadios(gevonden);
+}
+document.getElementById('zoek').addEventListener('input',zoekRadio);
+
+async function laadChat(){
+  try{
+    const response=await fetch('/api/chat');
+    const berichten=await response.json();
+    if(!Array.isArray(berichten))return;
+    const vak=document.getElementById('chatberichten');
+    if(berichten.length===0){
+      vak.innerHTML='<div>Nog geen berichten. Start de chat!</div>';
+      return;
+    }
+    const onderaan=vak.scrollHeight-vak.scrollTop-vak.clientHeight<80;
+    vak.innerHTML=berichten.map(b=>`
+      <div class="bericht">
+        <span class="berichtnaam">${e(b.name)}</span>
+        <span class="tijd">${e(b.created_at)}</span>
+        <div>${e(b.message)}</div>
+      </div>`).join('');
+    if(onderaan)vak.scrollTop=vak.scrollHeight;
+  }catch(fout){
+    document.getElementById('chatstatus').textContent='Chat kan momenteel niet worden geladen.';
+  }
+}
+
+async function verstuurBericht(){
+  const naam=document.getElementById('chatnaam').value.trim();
+  const bericht=document.getElementById('chatbericht').value.trim();
+  const status=document.getElementById('chatstatus');
+  status.textContent='';
+  if(!naam){status.textContent='Vul eerst je naam of roepnaam in.';return}
+  if(!bericht){status.textContent='Typ eerst een bericht.';return}
+  try{
+    const response=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:naam,message:bericht})
+    });
+    const resultaat=await response.json();
+    if(!response.ok){
+      status.textContent=resultaat.error||'Bericht kon niet worden verstuurd.';
+      return;
+    }
+    document.getElementById('chatbericht').value='';
+    localStorage.setItem('pocRadioChatNaam',naam);
+    await laadChat();
+    const vak=document.getElementById('chatberichten');
+    vak.scrollTop=vak.scrollHeight;
+  }catch(fout){
+    status.textContent='Bericht kon niet worden verstuurd.';
+  }
+}
+
+document.getElementById('chatbericht').addEventListener('keydown',function(event){
+  if(event.key==='Enter'){
+    event.preventDefault();
+    verstuurBericht();
+  }
+});
+
+const opgeslagenNaam=localStorage.getItem('pocRadioChatNaam');
+if(opgeslagenNaam)document.getElementById('chatnaam').value=opgeslagenNaam;
+
+laadRadios();
+laadChat();
+setInterval(laadRadios,15000);
+setInterval(laadChat,5000);
+</script>
+</body>
+</html>
