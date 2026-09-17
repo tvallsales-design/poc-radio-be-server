@@ -21,6 +21,30 @@ body{
   border-radius:15px;
 }
 
+/* ZOEKVAK */
+.zoekvak{
+  width:100%;
+  max-width:500px;
+  box-sizing:border-box;
+  padding:14px 18px;
+  margin:5px 0 25px 0;
+  border:1px solid #28506a;
+  border-radius:10px;
+  background:#061522;
+  color:#fff;
+  font-size:17px;
+  outline:none;
+}
+
+.zoekvak::placeholder{
+  color:#9bb3c3;
+}
+
+.zoekvak:focus{
+  border-color:#5de1ff;
+  box-shadow:0 0 8px rgba(93,225,255,0.3);
+}
+
 .tables{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -69,6 +93,15 @@ ALWAYS CONNECTED BY POC RADIO BE
   <h1>POC RADIO BE</h1>
   <h2>Wie is online?</h2>
 
+  <!-- ZOEKFUNCTIE -->
+  <input
+    type="text"
+    id="zoek"
+    class="zoekvak"
+    placeholder="🔍 Zoek op naam..."
+    autocomplete="off"
+  >
+
   <div class="tables">
 
     <table>
@@ -106,6 +139,7 @@ ALWAYS CONNECTED BY POC RADIO BE
 >
 
 <script>
+
 const e = s => String(s ?? '').replace(
   /[&<>"]/g,
   c => ({
@@ -115,6 +149,9 @@ const e = s => String(s ?? '').replace(
     '"':'&quot;'
   }[c])
 );
+
+/* ALLE RADIO'S BEWAREN */
+let alleRadios = [];
 
 function maakRijen(radios){
   return radios.map(x => `
@@ -128,24 +165,44 @@ function maakRijen(radios){
   `).join('');
 }
 
+/* RADIO'S OVER TWEE TABELLEN VERDELEN */
+function toonRadios(radios){
+
+  const helft = Math.ceil(radios.length / 2);
+
+  const links = radios.slice(0, helft);
+  const rechts = radios.slice(helft);
+
+  if(radios.length === 0){
+    document.getElementById('r1').innerHTML =
+      '<tr><td colspan="3">Geen radio gevonden.</td></tr>';
+
+    document.getElementById('r2').innerHTML = '';
+    return;
+  }
+
+  document.getElementById('r1').innerHTML =
+    maakRijen(links);
+
+  document.getElementById('r2').innerHTML =
+    maakRijen(rechts);
+}
+
+/* RADIO'S VAN SERVER LADEN */
 async function laadRadios(){
+
   try{
+
     const response = await fetch('/api/public/radios');
     const radios = await response.json();
 
-    const helft = Math.ceil(radios.length / 2);
+    alleRadios = radios;
 
-    const links = radios.slice(0, helft);
-    const rechts = radios.slice(helft);
-
-    document.getElementById('r1').innerHTML =
-      links.length ? maakRijen(links) :
-      '<tr><td colspan="3">Nog geen leden.</td></tr>';
-
-    document.getElementById('r2').innerHTML =
-      rechts.length ? maakRijen(rechts) : '';
+    /* zoekopdracht behouden bij automatische update */
+    zoekRadio();
 
   } catch(fout){
+
     document.getElementById('r1').innerHTML =
       '<tr><td colspan="3">Kan de radiolijst niet laden.</td></tr>';
 
@@ -153,8 +210,39 @@ async function laadRadios(){
   }
 }
 
+/* ZOEKFUNCTIE */
+function zoekRadio(){
+
+  const zoektekst =
+    document.getElementById('zoek').value
+      .toLowerCase()
+      .trim();
+
+  if(!zoektekst){
+    toonRadios(alleRadios);
+    return;
+  }
+
+  const gevonden = alleRadios.filter(radio =>
+    String(radio.name || '')
+      .toLowerCase()
+      .includes(zoektekst)
+  );
+
+  toonRadios(gevonden);
+}
+
+/* DIRECT ZOEKEN TIJDENS TYPEN */
+document
+  .getElementById('zoek')
+  .addEventListener('input', zoekRadio);
+
+/* START */
 laadRadios();
+
+/* ELKE 15 SECONDEN VERNIEUWEN */
 setInterval(laadRadios,15000);
+
 </script>
 
 </body>
