@@ -16,7 +16,7 @@ def get_radios():
     conn.row_factory = sqlite3.Row
 
     try:
-       rows = conn.execute("SELECT * FROM radios ORDER BY CASE WHEN LOWER(status) = 'online' THEN 0 ELSE 1 END, name COLLATE NOCASE").fetchall() 
+        rows = conn.execute("SELECT * FROM radios ORDER BY CASE WHEN LOWER(status) = 'online' THEN 0 ELSE 1 END, name COLLATE NOCASE").fetchall() 
         return [dict(row) for row in rows]
     finally:
         conn.close()
