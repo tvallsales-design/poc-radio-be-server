@@ -21,30 +21,6 @@ body{
   border-radius:15px;
 }
 
-/* ZOEKVAK */
-.zoekvak{
-  width:100%;
-  max-width:500px;
-  box-sizing:border-box;
-  padding:14px 18px;
-  margin:5px 0 25px 0;
-  border:1px solid #28506a;
-  border-radius:10px;
-  background:#061522;
-  color:#fff;
-  font-size:17px;
-  outline:none;
-}
-
-.zoekvak::placeholder{
-  color:#9bb3c3;
-}
-
-.zoekvak:focus{
-  border-color:#5de1ff;
-  box-shadow:0 0 8px rgba(93,225,255,0.3);
-}
-
 .tables{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -62,8 +38,111 @@ td,th{
   text-align:left;
 }
 
-.on{color:#5de18a}
-.off{color:#ff6574}
+.on{
+  color:#5de18a;
+}
+
+.off{
+  color:#ff6574;
+}
+
+/* ZOEKVAK */
+
+.zoekvak{
+  width:100%;
+  max-width:500px;
+  box-sizing:border-box;
+  padding:14px 16px;
+  margin:5px 0 25px;
+  border:1px solid #28506a;
+  border-radius:10px;
+  background:#061522;
+  color:white;
+  font-size:16px;
+  outline:none;
+}
+
+.zoekvak:focus{
+  border-color:#5de1ff;
+}
+
+/* CHAT */
+
+.chat{
+  margin-top:35px;
+  padding:20px;
+  background:#061522;
+  border:1px solid #28506a;
+  border-radius:15px;
+}
+
+.chat h2{
+  color:#5de1ff;
+  margin-top:0;
+}
+
+.chatberichten{
+  height:320px;
+  overflow-y:auto;
+  background:#0b2639;
+  border:1px solid #28506a;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.bericht{
+  padding:10px;
+  margin-bottom:10px;
+  border-bottom:1px solid #28506a;
+}
+
+.berichtnaam{
+  color:#5de18a;
+  font-weight:bold;
+}
+
+.tijd{
+  color:#9bb3c3;
+  font-size:12px;
+  margin-left:8px;
+}
+
+.chatvelden{
+  display:grid;
+  grid-template-columns:180px 1fr auto;
+  gap:10px;
+}
+
+.chatvelden input{
+  padding:13px;
+  border-radius:8px;
+  border:1px solid #28506a;
+  background:#0b2639;
+  color:white;
+  font-size:16px;
+}
+
+.chatvelden button{
+  padding:13px 22px;
+  border:0;
+  border-radius:8px;
+  background:#5de18a;
+  color:#061522;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.chatvelden button:hover{
+  opacity:.9;
+}
+
+.chatstatus{
+  color:#ff6574;
+  min-height:20px;
+  margin-top:10px;
+}
 
 .logo{
   display:block;
@@ -75,9 +154,15 @@ td,th{
 }
 
 @media(max-width:900px){
+
   .tables{
     grid-template-columns:1fr;
   }
+
+  .chatvelden{
+    grid-template-columns:1fr;
+  }
+
 }
 </style>
 </head>
@@ -90,53 +175,91 @@ ALWAYS CONNECTED BY POC RADIO BE
 
 <div class="p">
 
-  <h1>POC RADIO BE</h1>
-  <h2>Wie is online?</h2>
+<h1>POC RADIO BE</h1>
+<h2>Wie is online?</h2>
 
-  <!-- ZOEKFUNCTIE -->
-  <input
-    type="text"
-    id="zoek"
-    class="zoekvak"
-    placeholder="🔍 Zoek op naam..."
-    autocomplete="off"
-  >
+<input
+  type="text"
+  id="zoek"
+  class="zoekvak"
+  placeholder="🔍 Zoek op naam..."
+  autocomplete="off"
+>
 
-  <div class="tables">
+<div class="tables">
 
-    <table>
-      <thead>
-        <tr>
-          <th>Naam</th>
-          <th>Status</th>
-          <th>Laatst online</th>
-        </tr>
-      </thead>
-      <tbody id="r1"></tbody>
-    </table>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Status</th>
+<th>Laatst online</th>
+</tr>
+</thead>
+<tbody id="r1"></tbody>
+</table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Naam</th>
-          <th>Status</th>
-          <th>Laatst online</th>
-        </tr>
-      </thead>
-      <tbody id="r2"></tbody>
-    </table>
-
-  </div>
-
-  <p>IMEI, batterij en GPS worden niet openbaar getoond.</p>
+<table>
+<thead>
+<tr>
+<th>Naam</th>
+<th>Status</th>
+<th>Laatst online</th>
+</tr>
+</thead>
+<tbody id="r2"></tbody>
+</table>
 
 </div>
 
-<img
-  src="616338863_122119169199130837_2862670572946327472_n (1).jpg"
-  alt="POC RADIO BE"
-  class="logo"
+<p>IMEI, batterij en GPS worden niet openbaar getoond.</p>
+
+
+<!-- CHATBOX -->
+
+<div class="chat">
+
+<h2>💬 POC RADIO BE Chat</h2>
+
+<div id="chatberichten" class="chatberichten">
+  Chat laden...
+</div>
+
+<div class="chatvelden">
+
+<input
+  type="text"
+  id="chatnaam"
+  maxlength="40"
+  placeholder="Naam / roepnaam"
 >
+
+<input
+  type="text"
+  id="chatbericht"
+  maxlength="500"
+  placeholder="Typ hier je bericht..."
+>
+
+<button onclick="verstuurBericht()">
+Versturen
+</button>
+
+</div>
+
+<div id="chatstatus" class="chatstatus"></div>
+
+</div>
+
+</div>
+
+
+<img
+src="616338863_122119169199130837_2862670572946327472_n (1).jpg"
+alt="POC RADIO BE"
+class="logo"
+>
+
 
 <script>
 
@@ -150,98 +273,387 @@ const e = s => String(s ?? '').replace(
   }[c])
 );
 
-/* ALLE RADIO'S BEWAREN */
+
+/* =========================
+   RADIO LIJST
+========================= */
+
 let alleRadios = [];
 
+
 function maakRijen(radios){
+
   return radios.map(x => `
+
     <tr>
+
       <td>${e(x.name)}</td>
+
       <td class="${x.status === 'online' ? 'on' : 'off'}">
-        ${x.status === 'online' ? '🟢 Online' : '🔴 Offline'}
+
+        ${x.status === 'online'
+          ? '🟢 Online'
+          : '🔴 Offline'}
+
       </td>
+
       <td>${e(x.last_seen || '-')}</td>
+
     </tr>
+
   `).join('');
+
 }
 
-/* RADIO'S OVER TWEE TABELLEN VERDELEN */
+
 function toonRadios(radios){
 
-  const helft = Math.ceil(radios.length / 2);
+  const helft =
+    Math.ceil(radios.length / 2);
 
-  const links = radios.slice(0, helft);
-  const rechts = radios.slice(helft);
+  const links =
+    radios.slice(0, helft);
+
+  const rechts =
+    radios.slice(helft);
+
 
   if(radios.length === 0){
+
     document.getElementById('r1').innerHTML =
       '<tr><td colspan="3">Geen radio gevonden.</td></tr>';
 
     document.getElementById('r2').innerHTML = '';
+
     return;
   }
+
 
   document.getElementById('r1').innerHTML =
     maakRijen(links);
 
   document.getElementById('r2').innerHTML =
     maakRijen(rechts);
+
 }
 
-/* RADIO'S VAN SERVER LADEN */
+
 async function laadRadios(){
 
   try{
 
-    const response = await fetch('/api/public/radios');
-    const radios = await response.json();
+    const response =
+      await fetch('/api/public/radios');
+
+    const radios =
+      await response.json();
 
     alleRadios = radios;
 
-    /* zoekopdracht behouden bij automatische update */
     zoekRadio();
 
-  } catch(fout){
+  }
+  catch(fout){
 
     document.getElementById('r1').innerHTML =
       '<tr><td colspan="3">Kan de radiolijst niet laden.</td></tr>';
 
     document.getElementById('r2').innerHTML = '';
+
   }
+
 }
 
-/* ZOEKFUNCTIE */
+
 function zoekRadio(){
 
   const zoektekst =
-    document.getElementById('zoek').value
+    document
+      .getElementById('zoek')
+      .value
       .toLowerCase()
       .trim();
 
+
   if(!zoektekst){
+
     toonRadios(alleRadios);
+    return;
+
+  }
+
+
+  const gevonden =
+    alleRadios.filter(radio =>
+
+      String(radio.name || '')
+        .toLowerCase()
+        .includes(zoektekst)
+
+    );
+
+
+  toonRadios(gevonden);
+
+}
+
+
+document
+.getElementById('zoek')
+.addEventListener(
+  'input',
+  zoekRadio
+);
+
+
+/* =========================
+   CHAT
+========================= */
+
+
+async function laadChat(){
+
+  try{
+
+    const response =
+      await fetch('/api/chat');
+
+    const berichten =
+      await response.json();
+
+
+    if(!Array.isArray(berichten)){
+      return;
+    }
+
+
+    const vak =
+      document.getElementById(
+        'chatberichten'
+      );
+
+
+    if(berichten.length === 0){
+
+      vak.innerHTML =
+        '<div>Nog geen berichten. Start de chat!</div>';
+
+      return;
+
+    }
+
+
+    const onderaan =
+      vak.scrollHeight -
+      vak.scrollTop -
+      vak.clientHeight < 80;
+
+
+    vak.innerHTML =
+      berichten.map(b => `
+
+        <div class="bericht">
+
+          <span class="berichtnaam">
+            ${e(b.name)}
+          </span>
+
+          <span class="tijd">
+            ${e(b.created_at)}
+          </span>
+
+          <div>
+            ${e(b.message)}
+          </div>
+
+        </div>
+
+      `).join('');
+
+
+    if(onderaan){
+      vak.scrollTop =
+        vak.scrollHeight;
+    }
+
+  }
+  catch(fout){
+
+    document.getElementById(
+      'chatstatus'
+    ).textContent =
+      'Chat kan momenteel niet worden geladen.';
+
+  }
+
+}
+
+
+async function verstuurBericht(){
+
+  const naam =
+    document
+      .getElementById('chatnaam')
+      .value
+      .trim();
+
+  const bericht =
+    document
+      .getElementById('chatbericht')
+      .value
+      .trim();
+
+
+  const status =
+    document.getElementById(
+      'chatstatus'
+    );
+
+
+  status.textContent = '';
+
+
+  if(!naam){
+
+    status.textContent =
+      'Vul eerst je naam of roepnaam in.';
+
     return;
   }
 
-  const gevonden = alleRadios.filter(radio =>
-    String(radio.name || '')
-      .toLowerCase()
-      .includes(zoektekst)
-  );
 
-  toonRadios(gevonden);
+  if(!bericht){
+
+    status.textContent =
+      'Typ eerst een bericht.';
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch('/api/chat', {
+
+        method:'POST',
+
+        headers:{
+          'Content-Type':
+            'application/json'
+        },
+
+        body:JSON.stringify({
+          name:naam,
+          message:bericht
+        })
+
+      });
+
+
+    const resultaat =
+      await response.json();
+
+
+    if(!response.ok){
+
+      status.textContent =
+        resultaat.error ||
+        'Bericht kon niet worden verstuurd.';
+
+      return;
+
+    }
+
+
+    document.getElementById(
+      'chatbericht'
+    ).value = '';
+
+
+    /* naam onthouden op deze computer */
+    localStorage.setItem(
+      'pocRadioChatNaam',
+      naam
+    );
+
+
+    await laadChat();
+
+
+    const vak =
+      document.getElementById(
+        'chatberichten'
+      );
+
+    vak.scrollTop =
+      vak.scrollHeight;
+
+
+  }
+  catch(fout){
+
+    status.textContent =
+      'Bericht kon niet worden verstuurd.';
+
+  }
+
 }
 
-/* DIRECT ZOEKEN TIJDENS TYPEN */
+
+/* ENTER = VERSTUREN */
+
 document
-  .getElementById('zoek')
-  .addEventListener('input', zoekRadio);
+.getElementById('chatbericht')
+.addEventListener(
+  'keydown',
+  function(event){
 
-/* START */
+    if(event.key === 'Enter'){
+
+      event.preventDefault();
+
+      verstuurBericht();
+
+    }
+
+  }
+);
+
+
+/* NAAM ONTHOUDEN */
+
+const opgeslagenNaam =
+  localStorage.getItem(
+    'pocRadioChatNaam'
+  );
+
+if(opgeslagenNaam){
+
+  document.getElementById(
+    'chatnaam'
+  ).value =
+    opgeslagenNaam;
+
+}
+
+
+/* =========================
+   START
+========================= */
+
 laadRadios();
+laadChat();
 
-/* ELKE 15 SECONDEN VERNIEUWEN */
-setInterval(laadRadios,15000);
+setInterval(
+  laadRadios,
+  15000
+);
+
+setInterval(
+  laadChat,
+  5000
+);
 
 </script>
 
