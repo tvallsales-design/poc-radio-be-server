@@ -197,6 +197,43 @@ th{color:#c9dbe5;font-weight:normal}
   .tijd{margin-top:-3px}
   td,th{padding:8px;font-size:12px}
 }
+
+/* Compacte radio-lijsten met scrollbar */
+.tablebox table{
+  display:block;
+  width:100%;
+}
+.tablebox thead,
+.tablebox tbody{
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+.tablebox tbody{
+  display:block;
+  max-height:260px;
+  overflow-y:auto;
+  scrollbar-color:#20c9ff #071a28;
+  scrollbar-width:thin;
+}
+.tablebox tbody tr{
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+.tablebox tbody::-webkit-scrollbar{width:9px}
+.tablebox tbody::-webkit-scrollbar-track{background:#071a28}
+.tablebox tbody::-webkit-scrollbar-thumb{
+  background:#20c9ff;
+  border-radius:10px;
+}
+.aantal{
+  font-size:14px;
+  color:#b9d4df;
+  font-weight:normal;
+  margin-left:8px;
+}
+
 </style>
 </head>
 <body>
@@ -216,14 +253,14 @@ th{color:#c9dbe5;font-weight:normal}
 
   <div class="tables">
     <div class="tablebox">
-      <div class="tabletitle">🟢 Online gebruikers</div>
+      <div class="tabletitle">🟢 Online gebruikers <span id="onlineAantal" class="aantal">(0)</span></div>
       <table>
         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
         <tbody id="r1"></tbody>
       </table>
     </div>
     <div class="tablebox">
-      <div class="tabletitle">🔴 Offline gebruikers</div>
+      <div class="tabletitle">🔴 Offline gebruikers <span id="offlineAantal" class="aantal">(0)</span></div>
       <table>
         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
         <tbody id="r2"></tbody>
@@ -263,6 +300,11 @@ function maakRijen(radios){
 function toonRadios(radios){
   const online=radios.filter(x=>String(x.status).toLowerCase()==='online');
   const offline=radios.filter(x=>String(x.status).toLowerCase()!=='online');
+
+  const onlineTeller=document.getElementById('onlineAantal');
+  const offlineTeller=document.getElementById('offlineAantal');
+  if(onlineTeller) onlineTeller.textContent=`(${online.length})`;
+  if(offlineTeller) offlineTeller.textContent=`(${offline.length})`;
 
   document.getElementById('r1').innerHTML=online.length
     ? maakRijen(online)
