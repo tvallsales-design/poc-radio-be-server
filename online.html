@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wie is online?</title>
 
 <style>
@@ -10,23 +10,34 @@ body{
   background:#061522;
   color:#fff;
   font:16px Arial;
+  margin:0;
 }
+
 .p{
-  max-width:800px;
+  max-width:1400px;
   margin:30px auto;
   background:#0b2639;
   padding:25px;
   border-radius:15px;
 }
+
+.tables{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
 }
+
 td,th{
   padding:14px;
   border-bottom:1px solid #28506a;
   text-align:left;
 }
+
 .on{color:#5de18a}
 .off{color:#ff6574}
 
@@ -38,31 +49,54 @@ td,th{
   margin:30px auto;
   border-radius:12px;
 }
+
+@media(max-width:900px){
+  .tables{
+    grid-template-columns:1fr;
+  }
+}
 </style>
-</head><body>
+</head>
+
+<body>
 
 <h2 style="text-align:center;color:#5de1ff;font-size:28px;">
 ALWAYS CONNECTED BY POC RADIO BE
 </h2>
 
-<body>
-
 <div class="p">
+
   <h1>POC RADIO BE</h1>
   <h2>Wie is online?</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Naam</th>
-        <th>Status</th>
-        <th>Laatst online</th>
-      </tr>
-    </thead>
-    <tbody id="r"></tbody>
-  </table>
+  <div class="tables">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>Status</th>
+          <th>Laatst online</th>
+        </tr>
+      </thead>
+      <tbody id="r1"></tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>Status</th>
+          <th>Laatst online</th>
+        </tr>
+      </thead>
+      <tbody id="r2"></tbody>
+    </table>
+
+  </div>
 
   <p>IMEI, batterij en GPS worden niet openbaar getoond.</p>
+
 </div>
 
 <img
@@ -82,31 +116,45 @@ const e = s => String(s ?? '').replace(
   }[c])
 );
 
-async function laadRadios() {
-  try {
+function maakRijen(radios){
+  return radios.map(x => `
+    <tr>
+      <td>${e(x.name)}</td>
+      <td class="${x.status === 'online' ? 'on' : 'off'}">
+        ${x.status === 'online' ? '🟢 Online' : '🔴 Offline'}
+      </td>
+      <td>${e(x.last_seen || '-')}</td>
+    </tr>
+  `).join('');
+}
+
+async function laadRadios(){
+  try{
     const response = await fetch('/api/public/radios');
     const radios = await response.json();
 
-    document.getElementById('r').innerHTML = radios.length
-      ? radios.map(x => `
-        <tr>
-          <td>${e(x.name)}</td>
-          <td class="${x.status === 'online' ? 'on' : 'off'}">
-            ${x.status === 'online' ? '🟢 Online' : '🔴 Offline'}
-          </td>
-          <td>${e(x.last_seen || '-')}</td>
-        </tr>
-      `).join('')
-      : '<tr><td colspan="3">Nog geen leden.</td></tr>';
+    const helft = Math.ceil(radios.length / 2);
 
-  } catch (fout) {
-    document.getElementById('r').innerHTML =
+    const links = radios.slice(0, helft);
+    const rechts = radios.slice(helft);
+
+    document.getElementById('r1').innerHTML =
+      links.length ? maakRijen(links) :
+      '<tr><td colspan="3">Nog geen leden.</td></tr>';
+
+    document.getElementById('r2').innerHTML =
+      rechts.length ? maakRijen(rechts) : '';
+
+  } catch(fout){
+    document.getElementById('r1').innerHTML =
       '<tr><td colspan="3">Kan de radiolijst niet laden.</td></tr>';
+
+    document.getElementById('r2').innerHTML = '';
   }
 }
 
 laadRadios();
-setInterval(laadRadios, 15000);
+setInterval(laadRadios,15000);
 </script>
 
 </body>
