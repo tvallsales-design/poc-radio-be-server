@@ -1,290 +1,245 @@
-<!doctype html>
-<html lang="nl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wie is online? - POC RADIO BE</title>
-<style>
-*{box-sizing:border-box}
-html,body{width:100%;max-width:100%;overflow-x:hidden}
-body{
-  margin:0;
-  padding:10px 8px 14px;
-  background:#02080d;
-  color:#fff;
-  font:14px Arial,sans-serif;
-}
-.slogan{
-  text-align:center;
-  color:#5de1ff;
-  font-size:25px;
-  font-weight:800;
-  margin:0 0 10px;
-  text-shadow:0 0 12px rgba(93,225,255,.55);
-}
-.p{
-  width:100%;
-  max-width:1600px;
-  margin:0 auto;
-  padding:0;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-}
-.bovenkant{
-  display:grid;
-  grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);
-  gap:24px;
-  align-items:center;
-  padding:14px 28px 12px;
-  margin-bottom:10px;
-  background:linear-gradient(120deg,#061522 0%,#031019 45%,#000 100%);
-  border:1px solid #00cfff;
-  border-radius:15px;
-  box-shadow:0 0 18px rgba(0,207,255,.18);
-  overflow:hidden;
-}
-.bovenlinks,.bovenkant>*{min-width:0}
-.bovenlinks h1{
-  font-size:clamp(36px,4vw,62px);
-  line-height:1;
-  margin:0 0 14px;
-  letter-spacing:1px;
-}
-.sub{
-  width:100%;
-  max-width:620px;
-  padding-top:10px;
-  margin:0 0 18px;
-  border-top:2px solid #20c9ff;
-  color:#d8e7ef;
-  font-size:clamp(11px,1.25vw,16px);
-  letter-spacing:3px;
-  white-space:normal;
-}
-.bovenlinks h2{
-  font-size:clamp(29px,3vw,45px);
-  margin:0 0 16px;
-}
-.banner-rechts{
-  display:block;
-  width:100%;
-  height:245px;
-  max-height:none;
-  object-fit:contain;
-  background:#000;
-  border:0;
-  border-radius:10px;
-  padding:0;
-}
-.zoekvak{
-  width:100%;
-  max-width:590px;
-  padding:13px 16px;
-  border:1px solid #20c9ff;
-  border-radius:10px;
-  background:#04111b;
-  color:#fff;
-  font-size:15px;
-  outline:none;
-}
-.zoekvak:focus{box-shadow:0 0 14px rgba(32,201,255,.35)}
-.tables{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:12px;
-}
-.tablebox{
-  overflow:hidden;
-  background:linear-gradient(145deg,#061522,#071a28);
-  border:1px solid #00bfe9;
-  border-radius:14px;
-}
-.tabletitle{
-  padding:10px 18px;
-  font-size:18px;
-  font-weight:bold;
-  border-bottom:1px solid #285f7a;
-}
-table{width:100%;border-collapse:collapse}
-td,th{
-  padding:9px 18px;
-  border-bottom:1px solid #28506a;
-  text-align:left;
-  font-size:13px;
-}
-th{color:#c9dbe5;font-weight:normal}
-.on{color:#20ef76}
-.off{color:#ff6574}
-.privacy{
-  text-align:center;
-  color:#9fb4c0;
-  margin:8px 0;
-  font-size:12px;
-}
-.chat{
-  margin-top:10px;
-  padding:12px 14px;
-  background:linear-gradient(145deg,#061522,#04111b);
-  border:1px solid #00bfe9;
-  border-radius:14px;
-}
-.chat h2{
-  color:#28ddf6;
-  margin:0 0 10px;
-  font-size:20px;
-}
-.chatberichten{
-  height:110px;
-  overflow-y:auto;
-  background:#03121c;
-  border:1px solid #28506a;
-  border-radius:8px;
-  padding:6px 10px;
-  margin-bottom:8px;
-}
-.bericht{
-  display:grid;
-  grid-template-columns:140px 135px 1fr;
-  gap:8px;
-  align-items:center;
-  padding:6px 4px;
-  margin:0;
-  border-bottom:1px solid #17445d;
-  font-size:12px;
-}
-.berichtnaam{color:#20ef76;font-weight:bold}
-.tijd{color:#8faabd;font-size:11px;margin:0}
-.chatvelden{
-  display:grid;
-  grid-template-columns:190px 1fr 125px;
-  gap:8px;
-}
-.chatvelden input{
-  min-width:0;
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid #168eb7;
-  background:#071a28;
-  color:#fff;
-  font-size:14px;
-}
-.chatvelden button{
-  padding:10px 16px;
-  border:0;
-  border-radius:8px;
-  background:#20ef76;
-  color:#03121c;
-  font-weight:bold;
-  font-size:14px;
-  cursor:pointer;
-}
-.chatvelden button:hover{opacity:.9}
-.chatstatus{color:#ff6574;min-height:14px;margin-top:5px;font-size:12px}
-@media(max-width:1050px){
-  .bovenkant{grid-template-columns:1fr;padding:20px}
-  .banner-rechts{height:auto;max-height:300px}
-  .tables{grid-template-columns:1fr}
-}
-@media(max-width:650px){
-  body{padding:8px}
-  .slogan{font-size:19px}
-  .bovenlinks h1{font-size:34px}
-  .sub{letter-spacing:1px}
-  .bovenlinks h2{font-size:28px}
-  .chatvelden{grid-template-columns:1fr}
-  .bericht{grid-template-columns:1fr}
-  .tijd{margin-top:-3px}
-  td,th{padding:8px;font-size:12px}
-}
+import os
+import json
+import sqlite3
+from datetime import datetime
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from urllib.parse import urlparse
 
-.contact{
-  margin-top:10px;
-  padding:14px 18px;
-  text-align:center;
-  background:linear-gradient(145deg,#061522,#04111b);
-  border:1px solid #00bfe9;
-  border-radius:14px;
-  color:#c9dbe5;
-}
-.contact strong{
-  color:#28ddf6;
-  font-size:18px;
-}
-.contact a{
-  display:inline-block;
-  margin-top:8px;
-  padding:9px 16px;
-  border:1px solid #20c9ff;
-  border-radius:8px;
-  color:#5de1ff;
-  text-decoration:none;
-  font-weight:bold;
-}
-.contact a:hover{
-  background:#0b2639;
-  box-shadow:0 0 12px rgba(32,201,255,.25);
-}
-.contact .dienst{
-  margin-top:8px;
-  color:#9fb4c0;
-  font-size:12px;
-  letter-spacing:1px;
-}
-</style>
-</head>
-<body>
+PORT = int(os.environ.get("PORT", "10000"))
+DB_FILE = os.environ.get("DB_FILE", "poc_radio.db")
 
-<!-- ONDERHOUDS-BANNER HELEMAAL BOVENAAN -->
-<div style="background-color: #061522; border: 2px solid #00cfff; border-radius: 14px; padding: 18px 25px; margin: 15px auto 25px auto; max-width: 1600px; box-shadow: 0 0 25px rgba(0,207,255,.3); font-family: Arial, sans-serif;">
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 28px;">🔧</span>
-        <p style="color: #ffffff; margin: 0; font-size: 16px; line-height: 1.5;">
-            <strong style="color: #5de1ff; font-size: 17px;">Mededeling:</strong> Onze statuspagina is momenteel in opbouw. We werken aan een verbeterde live-weergave van de online radio's!
-        </p>
-    </div>
-</div>
 
-<div class="slogan">ALWAYS CONNECTED BY POC RADIO BE</div>
+def db_connection():
+    conn = sqlite3.connect(DB_FILE, timeout=10)
+    conn.row_factory = sqlite3.Row
+    return conn
 
-<div class="p">
-  <div class="bovenkant">
-    <div class="bovenlinks">
-      <h1>POC RADIO BE</h1>
-      <div class="sub">VERKOOP &nbsp;•&nbsp; VERHUUR &nbsp;•&nbsp; SERVICE &nbsp;•&nbsp; SUPPORT</div>
-      <h2>Wie is online?</h2>
-      <input type="text" id="zoek" class="zoekvak" placeholder="🔍 Zoek op naam..." autocomplete="off">
-    </div>
-    <img src="data:image/png;base64,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" class="banner-rechts" alt="Banner">
-  </div>
 
-  <div class="tables">
-    <div class="tablebox">
-      <div class="tabletitle"><span class="on">🟢</span> Online gebruikers</div>
-      <table>
-        <thead>
-          <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
-        </thead>
-        <tbody id="online-tbody">
-          <tr><td colspan="3" style="color:#9fb4c0;text-align:center;padding:20px;">Laden van actieve gebruikers...</td></tr>
-        </tbody>
-      </table>
-    </div>
+def init_chat():
+    conn = db_connection()
+    try:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS chat_messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                message TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            )
+        """)
+        conn.commit()
+    finally:
+        conn.close()
 
-    <div class="tablebox">
-      <div class="tabletitle"><span class="off">🔴</span> Offline gebruikers</div>
-      <table>
-        <thead>
-          <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
-        </thead>
-        <tbody id="offline-tbody">
-          <tr><td colspan="3" style="color:#9fb4c0;text-align:center;padding:20px;">Laden van offline gebruikers...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
-  <div class="privacy">IMEI, batterij en GPS worden niet openbaar getoond.</div>
+def get_radios():
+    if not os.path.exists(DB_FILE):
+        return []
 
-  <div class="chat">
-    <h2>💬 Chat - POC RADIO BE</h2>
+    conn = db_connection()
+
+    try:
+        rows = conn.execute("""
+            SELECT *
+            FROM radios
+            ORDER BY
+                CASE
+                    WHEN LOWER(status) = 'online' THEN 0
+                    ELSE 1
+                END,
+                name COLLATE NOCASE
+        """).fetchall()
+
+        return [dict(row) for row in rows]
+
+    finally:
+        conn.close()
+
+
+def get_chat_messages():
+    conn = db_connection()
+
+    try:
+        rows = conn.execute("""
+            SELECT id, name, message, created_at
+            FROM chat_messages
+            ORDER BY id DESC
+            LIMIT 50
+        """).fetchall()
+
+        return [dict(row) for row in reversed(rows)]
+
+    finally:
+        conn.close()
+
+
+def add_chat_message(name, message):
+
+    name = str(name).strip()[:40]
+    message = str(message).strip()[:500]
+
+    if not name:
+        raise ValueError("Naam ontbreekt.")
+
+    if not message:
+        raise ValueError("Bericht ontbreekt.")
+
+    created_at = datetime.now().strftime("%d-%m-%Y %H:%M")
+
+    conn = db_connection()
+
+    try:
+        conn.execute("""
+            INSERT INTO chat_messages
+            (name, message, created_at)
+            VALUES (?, ?, ?)
+        """, (name, message, created_at))
+
+        conn.commit()
+
+    finally:
+        conn.close()
+
+
+class Handler(SimpleHTTPRequestHandler):
+
+    def send_json(self, data, status=200):
+
+        body = json.dumps(
+            data,
+            ensure_ascii=False
+        ).encode("utf-8")
+
+        self.send_response(status)
+
+        self.send_header(
+            "Content-Type",
+            "application/json; charset=utf-8"
+        )
+
+        self.send_header(
+            "Access-Control-Allow-Origin",
+            "*"
+        )
+
+        self.send_header(
+            "Content-Length",
+            str(len(body))
+        )
+
+        self.end_headers()
+        self.wfile.write(body)
+
+
+    def do_GET(self):
+
+        path = urlparse(self.path).path
+
+        if path in (
+            "/api/radios",
+            "/api/public/radios"
+        ):
+
+            try:
+                self.send_json(get_radios())
+
+            except Exception as e:
+                self.send_json(
+                    {"error": str(e)},
+                    500
+                )
+
+            return
+
+
+        if path == "/api/chat":
+
+            try:
+                self.send_json(
+                    get_chat_messages()
+                )
+
+            except Exception as e:
+                self.send_json(
+                    {"error": str(e)},
+                    500
+                )
+
+            return
+
+
+        if path == "/online":
+            self.path = "/online.html"
+
+
+        return super().do_GET()
+
+
+    def do_POST(self):
+
+        path = urlparse(self.path).path
+
+        if path != "/api/chat":
+            self.send_json(
+                {"error": "Niet gevonden"},
+                404
+            )
+            return
+
+
+        try:
+
+            length = int(
+                self.headers.get(
+                    "Content-Length",
+                    "0"
+                )
+            )
+
+            raw = self.rfile.read(length)
+
+            data = json.loads(
+                raw.decode("utf-8")
+            )
+
+            name = data.get("name", "")
+            message = data.get("message", "")
+
+            add_chat_message(
+                name,
+                message
+            )
+
+            self.send_json({
+                "ok": True
+            })
+
+        except ValueError as e:
+
+            self.send_json(
+                {"error": str(e)},
+                400
+            )
+
+        except Exception as e:
+
+            self.send_json(
+                {"error": str(e)},
+                500
+            )
+
+
+if __name__ == "__main__":
+
+    init_chat()
+
+    print(
+        f"POC RADIO BE server gestart op poort {PORT}",
+        flush=True
+    )
+
+    server = ThreadingHTTPServer(
+        ("0.0.0.0", PORT),
+        Handler
+    )
+
+    server.serve_forever()
