@@ -93,6 +93,7 @@ body{
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:12px;
+  margin-bottom:12px;
 }
 .tablebox{
   overflow:hidden;
@@ -128,6 +129,7 @@ th{color:#c9dbe5;font-weight:normal}
   background:linear-gradient(145deg,#061522,#04111b);
   border:1px solid #00bfe9;
   border-radius:14px;
+  margin-bottom:15px;
 }
 .chat h2{
   color:#28ddf6;
@@ -196,46 +198,77 @@ th{color:#c9dbe5;font-weight:normal}
   .bericht{grid-template-columns:1fr}
   .tijd{margin-top:-3px}
   td,th{padding:8px;font-size:12px}
+  .contact-grid{grid-template-columns:1fr !important; gap:15px !important;}
 }
 
-.contact{
-  margin-top:10px;
-  padding:14px 18px;
-  text-align:center;
-  background:linear-gradient(145deg,#061522,#04111b);
-  border:1px solid #00bfe9;
-  border-radius:14px;
-  color:#c9dbe5;
+/* Verbeterde styling voor de onderste balk */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: linear-gradient(145deg, #061522, #04111b);
+  border: 1px solid #00bfe9;
+  border-radius: 14px;
 }
-.contact strong{
-  color:#28ddf6;
-  font-size:18px;
+.contact-links {
+  text-align: left;
 }
-.contact a{
-  display:inline-block;
-  margin-top:8px;
-  padding:9px 16px;
-  border:1px solid #20c9ff;
-  border-radius:8px;
-  color:#5de1ff;
-  text-decoration:none;
-  font-weight:bold;
+.contact-links h3 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
 }
-.contact a:hover{
-  background:#0b2639;
-  box-shadow:0 0 12px rgba(32,201,255,.25);
+.contact-links span {
+  color: #9fb4c0;
+  font-size: 12px;
 }
-.contact .dienst{
-  margin-top:8px;
-  color:#9fb4c0;
-  font-size:12px;
-  letter-spacing:1px;
+.contact-midden {
+  text-align: center;
+  border-left: 1px solid #17445d;
+  border-right: 1px solid #17445d;
+  padding: 0 10px;
+}
+.contact-midden strong {
+  color: #28ddf6;
+  font-size: 15px;
+}
+.contact-midden a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #5de1ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.contact-midden a:hover {
+  text-decoration: underline;
+}
+.contact-midden .dienst {
+  margin-top: 4px;
+  color: #9fb4c0;
+  font-size: 11px;
+}
+.contact-rechts {
+  text-align: center;
+}
+.contact-rechts span {
+  color: #28ddf6;
+  font-size: 14px;
+  font-weight: bold;
+}
+.contact-rechts p {
+  margin: 4px 0 0 0;
+  color: #9fb4c0;
+  font-size: 12px;
 }
 </style>
 </head>
 <body>
 
-<!-- ONDERHOUDS-BANNER STAAT HIER VEILIG -->
+<!-- ONDERHOUDS-BANNER BOVENAAN -->
 <div style="background-color: #061522; border: 2px solid #00cfff; border-radius: 14px; padding: 18px 25px; margin: 15px auto 25px auto; max-width: 1600px; box-shadow: 0 0 25px rgba(0,207,255,.3); font-family: Arial, sans-serif;">
     <div style="display: flex; align-items: center; gap: 15px;">
         <span style="font-size: 28px;">🔧</span>
@@ -266,25 +299,3 @@ th{color:#c9dbe5;font-weight:normal}
           <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
         </thead>
         <tbody id="online-tbody">
-          <tr><td colspan="3" style="color:#9fb4c0;text-align:center;padding:20px;">Laden van actieve gebruikers...</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="tablebox">
-      <div class="tabletitle"><span class="off">🔴</span> Offline gebruikers</div>
-      <table>
-        <thead>
-          <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
-        </thead>
-        <tbody id="offline-tbody">
-          <tr><td colspan="3" style="color:#9fb4c0;text-align:center;padding:20px;">Laden van offline gebruikers...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="privacy">IMEI, batterij en GPS worden niet openbaar getoond.</div>
-
-  <div class="chat">
-    <h2>💬 Chat - POC RADIO BE</h2>
