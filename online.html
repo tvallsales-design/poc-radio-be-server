@@ -42,7 +42,7 @@
 <script>
     async function laadDashboard() {
         try {
-            // Vraag de live data op bij uw Render API endpoint
+            // Vraag de data op bij uw eigen Python endpoint
             const response = await fetch('/api/public/radios');
             const data = await response.json();
             
@@ -50,22 +50,22 @@
             tabelBody.innerHTML = ''; // Maak de tabel leeg voor de update
 
             if (!data || data.length === 0) {
-                tabelBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Geen radio\'s gevonden.</td></tr>';
+                tabelBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Geen radio\'s in database gevonden.</td></tr>';
                 return;
             }
 
-            // Loop door alle radio-objecten heen
+            // Loop door alle radio's uit de SQLite tabel
             data.forEach(radio => {
-                // Haal de naam op (kijkt naar verschillende mogelijke databasevelden)
-                const naam = radio.name || radio.username || radio.alias || radio.imei || "Onbekend";
-                const ruweStatus = radio.status || "Offline";
+                // Zoek flexibel naar het naamveld, ongeacht hoofdletters in de database
+                const naam = radio.name || radio.Name || radio.NAME || radio.alias || "Onbekend";
+                const ruweStatus = String(radio.status || radio.Status || radio.STATUS || "Offline");
                 
-                // Controleer of de gebruiker online is voor de juiste kleur
+                // Bepaal of de status online of offline is
                 const isOnline = ruweStatus.toLowerCase().includes('online') || ruweStatus.includes('🟢');
                 const badgeKlasse = isOnline ? 'online' : 'offline';
                 const statusTekst = isOnline ? '🟢 Online' : '🔴 Offline';
 
-                // Maak een nieuwe rij aan met ALLEEN de naam en gefilterde status
+                // Maak de rij aan met uitsluitend de Naam en Status
                 const rij = document.createElement('tr');
                 rij.innerHTML = `
                     <td><strong>${naam}</strong></td>
@@ -76,14 +76,14 @@
         } catch (error) {
             console.error("Fout bij het ophalen van radiogegevens:", error);
             document.getElementById('gebruikers-tabel').innerHTML = 
-                '<tr><td colspan="2" style="text-align:center; color:red;">Fout bij laden van live status.</td></tr>';
+                '<tr><td colspan="2" style="text-align:center; color:red;">Fout bij verbinding met Python server.</td></tr>';
         }
     }
 
-    // Start de functie direct
+    // Direct uitvoeren
     laadDashboard();
 
-    // Ververs het dashboard elke 15 seconden automatisch op het scherm
+    // Elke 15 seconden automatisch verversen
     setInterval(laadDashboard, 15000);
 </script>
 
