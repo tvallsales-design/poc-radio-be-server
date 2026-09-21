@@ -3,24 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLOBAL-PTT - Live Status</title>
+    <title>Wie is online? - POC RADIO BE</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px; display: flex; justify-content: center; }
-        .dashboard-container { width: 100%; max-width: 600px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { color: #333; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-top: 0; text-align: center; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .dashboard-container { width: 100%; max-width: 600px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1, h2 { color: #333; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-top: 0; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #f8f9fa; color: #555; font-weight: bold; }
         .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold; display: inline-block; }
         .online { background-color: #d4edda; color: #155724; }
         .offline { background-color: #f8d7da; color: #721c24; }
-        .footer-text { margin-top: 20px; font-size: 0.85em; color: #999; text-align: center; }
+        .footer-text { font-size: 0.85em; color: #999; text-align: center; margin-top: 10px; }
+        .contact-box { width: 100%; max-width: 600px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="dashboard-container">
-    <h2>📻 Live Radio Status</h2>
+    <h1>POC RADIO BE</h1>
+    <h2>GLOBAL-PTT POC radio's</h2>
+    
     <table>
         <thead>
             <tr>
@@ -28,63 +31,58 @@
                 <th>Status</th>
             </tr>
         </thead>
-        <tbody id="gebruikers-tabel">
+        <tbody id="radios-tabel">
             <tr>
-                <td colspan="2" style="text-align: center; color: #777;">Gegevens worden geladen...</td>
+                <td colspan="2" style="text-align: center; color: #777;">Laden...</td>
             </tr>
         </tbody>
     </table>
+    
     <div class="footer-text">
-        🔒 IMEI, batterij en GPS worden niet openbaar getoond.
+        IMEI, batterij en GPS worden niet openbaar getoond.
     </div>
 </div>
 
+<div class="contact-box">
+    <h3>✉ Contact – POC RADIO BE</h3>
+    <p><a href="mailto:pocradiobe@hotmail.com">pocradiobe@hotmail.com</a></p>
+    <p>Vragen, info of ondersteuning? Neem gerust contact op!</p>
+</div>
+
 <script>
-    async function laadDashboard() {
+    async function haalOudeStatus() {
         try {
-            // Vraag de live data op bij uw Render API endpoint
             const response = await fetch('/api/public/radios');
             const data = await response.json();
-            
-            const tabelBody = document.getElementById('gebruikers-tabel');
-            tabelBody.innerHTML = ''; // Maak de tabel leeg voor de update
+            const tabel = document.getElementById('radios-tabel');
+            tabel.innerHTML = '';
 
-            if (!data || data.length === 0) {
-                tabelBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Geen radio\'s gevonden.</td></tr>';
+            if(!data || data.length === 0) {
+                tabel.innerHTML = '<tr><td colspan="2" style="text-align:center;">Geen gebruikers gevonden.</td></tr>';
                 return;
             }
 
-            // Loop door alle radio-objecten heen
-            data.forEach(radio => {
-                // Haal de naam op (kijkt naar verschillende mogelijke databasevelden)
-                const naam = radio.name || radio.username || radio.alias || radio.imei || "Onbekend";
-                const ruweStatus = radio.status || "Offline";
+            data.forEach(item => {
+                const naam = item.name || item.Name || item.NAME || "Onbekend";
+                const statusStr = String(item.status || "Offline");
                 
-                // Controleer of de gebruiker online is voor de juiste kleur
-                const isOnline = ruweStatus.toLowerCase().includes('online') || ruweStatus.includes('🟢');
+                const isOnline = statusStr.toLowerCase().includes('online') || statusStr.includes('🟢');
                 const badgeKlasse = isOnline ? 'online' : 'offline';
                 const statusTekst = isOnline ? '🟢 Online' : '🔴 Offline';
 
-                // Maak een nieuwe rij aan met ALLEEN de naam en gefilterde status
                 const rij = document.createElement('tr');
                 rij.innerHTML = `
                     <td><strong>${naam}</strong></td>
                     <td><span class="status-badge ${badgeKlasse}">${statusTekst}</span></td>
                 `;
-                tabelBody.appendChild(rij);
+                tabel.appendChild(rij);
             });
-        } catch (error) {
-            console.error("Fout bij het ophalen van radiogegevens:", error);
-            document.getElementById('gebruikers-tabel').innerHTML = 
-                '<tr><td colspan="2" style="text-align:center; color:red;">Fout bij laden van live status.</td></tr>';
+        } catch (e) {
+            console.error(e);
         }
     }
-
-    // Start de functie direct
-    laadDashboard();
-
-    // Ververs het dashboard elke 15 seconden automatisch op het scherm
-    setInterval(laadDashboard, 15000);
+    haalOudeStatus();
+    setInterval(haalOudeStatus, 15000);
 </script>
 
 </body>
