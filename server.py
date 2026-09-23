@@ -52,12 +52,11 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(chat_berichten).encode('utf-8'))
         
         # Website hoofdpagina Routes
-        elif self.path in ['/', '/online.html', '/index.html']:
+        elif self.path in ['/', '/online.html', '/index.html', '/online_met_contact%20(1).html']:
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
             
-            # Verwezen naar jouw actieve HTML-bestand in GitHub
             html_pad = os.path.join(BASE_DIR, 'online_met_contact (1).html')
             
             if os.path.exists(html_pad):
@@ -82,7 +81,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
                 "tijd": datetime.now().strftime("%H:%M")
             }
             chat_berichten.append(nieuw_bericht)
-            # Limiteer tot de laatste 50 berichten
             if len(chat_berichten) > 50:
                 chat_berichten.pop(0)
                 
