@@ -62,17 +62,15 @@ body{
   margin:0 0 16px;
 }
 .banner-rechts{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:block;
   width:100%;
   height:245px;
+  max-height:none;
+  object-fit:contain;
   background:#000;
+  border:0;
   border-radius:10px;
-  color:#20c9ff;
-  font-size:24px;
-  font-weight:bold;
-  border: 1px solid #20c9ff;
+  padding:0;
 }
 .zoekvak{
   width:100%;
@@ -118,9 +116,7 @@ th{color:#c9dbe5;font-weight:normal}
   .bovenkant{grid-template-columns:1fr;padding:20px}
   .tables{grid-template-columns:1fr}
 }
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgIAAADoCAYAAACdBYwBAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABhaVRYdFNuaXBNZXRhZGF0YQAAAAAAeyJjbGlwUG9pbnRzIjpbeyJ4IjowLCJ5IjowfSx7IngiOjUxNCwieSI6MH0seyJ4Ijo1MTQsInkiOjIzMn0seyJ4IjowLCJ5IjoyMzJ9XX00of+dAAD/OElEQVR4XtS9B2CcxdE+/pzudOqS5Sb3XrGxjcE2BtN77x2S0AIhCQlpfOmkQiCkASGkQRIIoYRA6L3aFINtwL13uVuyuk5393+e2d3TSZZcgvP9vv9Ie9tmZ2frzO67776RSGF5Gmn9pxGJwNkg0A7hdCjEhTmH4QRchUYCjsDjOZqM8TRCGmELlKZN2ojyi/hYF5cBF6jgfQaBd0G2uyPYXfzeQE6OK4z9sn5UR5FIFNFojrlzYzHE8/JQWFCAAQP6oV//fujWrRuKiwpRXVWNJcuWYtWqNdi6ZSvyiVfWtRzV26uxecsWpFIp1mGqDbNy7sQ/A1jdmbgAGVzXGSzsk4DIOFC7qk1bc1NZc3JykKPy047FVAcxFOTnIZ+mJdGCRLIFqWQKLckkkjSNjU1mizf1pWwOjbLnu334f1qS1v7bCq0lcLA72h3l7+plZ9p7A3tbrjZ8B48nsCd09ja/zmBXdPZJHiQS+vauoLO82oerD7TvUwLXhhbVBizYE+kwTVbgTvE0FuYdRisLOsIP0D5uV7AndENYtrs9ZOh4pGw8X217BUZvN+lCnu1RQrigDR+ZHwIj9pSlTBI65M7mydF0GLsaw1YHcuxppi4n5/TgcmHoHlao9VeBx90phcU7WpF4AWKDDqSvgIqAhwgkRLxXSDTmVzoLp7Foj5PxC+T207zHtyQMd3xlTXqyGWj0XYD9tgUX5gpFt/vvFCwLwi5xPClBR3i7oxHiO4Nd5W3lNSviBX6OD6bgz81F927dUdGrAsOGDcOY/UahtKQE1TU7sG7tOlRWVqJywwZs374N9bV1FIopE/hJmpaWFjQ3JdClvAzdu3fHogWLTHhaXRtD7bjydaBQK097v4d2qf5jUPmyTT在线" class="banner-rechts" alt="POC RADIO BE NETWORK">
-
-
+</style>
 </head>
 <body>
 
@@ -134,7 +130,7 @@ th{color:#c9dbe5;font-weight:normal}
       <h2>Wie is online?</h2>
       <input type="text" id="zoek" class="zoekvak" placeholder="🔍 Zoek op naam..." onkeyup="zoekFunctie()">
     </div>
-    <div class="banner-rechts">POC RADIO BE NETWORK</div>
+    <img src="https://poc-radio.be" class="banner-rechts" alt="POC RADIO BE NETWORK">
   </div>
 
   <div class="tables">
@@ -150,12 +146,7 @@ th{color:#c9dbe5;font-weight:normal}
           </tr>
         </thead>
         <tbody>
-          <!-- Om een gebruiker online te zetten, verplaats je zijn <tr> hiernaartoe -->
-          <tr>
-            <td class="berichtnaam">Geen gebruikers online</td>
-            <td class="on">-</td>
-            <td>-</td>
-          </tr>
+          <tr><td class="berichtnaam">ON0PAJ Repeter</td><td class="on">● Online</td><td>Live</td></tr>
         </tbody>
       </table>
     </div>
@@ -174,9 +165,7 @@ th{color:#c9dbe5;font-weight:normal}
         <tbody>
           <tr><td class="berichtnaam">432,550 + oproepkanaal club snw</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">O P 0 J POC</td><td class="off">● Offline</td><td>-</td></tr>
-         <tr><td class="berichtnaam">ON0PAJ Repeter</td><td class="on">● Online</td><td>Live</td></tr>
-
-          <tr><td class="berichtnaam">ON0PAJ Repeter</td><td class="off">● Offline</td><td>-</td></tr>
+          <tr><td class="berichtnaam">ON0GAL repeter</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">on0wl</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">ON1ZV</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">ON2ACO Thierr P aprs-7</td><td class="off">● Offline</td><td>-</td></tr>
@@ -229,3 +218,5 @@ th{color:#c9dbe5;font-weight:normal}
           <tr><td class="berichtnaam">ON4BWT Peter P</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">ON4BWT Peter Portabel 5G</td><td class="off">● Offline</td><td>-</td></tr>
           <tr><td class="berichtnaam">ON4CHJ Koen</td><td class="off">● Offline</td><td>-</td></tr>
+          <tr><td class="berichtnaam">ON4CHJ Koen gsm</td><td class="off">● Offline</td><td>-</td></tr>
+          <tr><td class="berichtnaam">ON4LK Kristof P</td><td class="off">● Offline</td><td>-</td></tr>
