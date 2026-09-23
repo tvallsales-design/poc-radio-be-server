@@ -87,8 +87,30 @@ th{color:#547991;font-weight:normal;background:#030f17;}
   height:180px;
   padding:15px 18px;
   overflow-y:auto;
+  color:#a3bbcc;
+  display: flex;
+  flex-direction: column;
+  gap:6px;
+}
+.chat-placeholder {
   color:#547991;
   font-style:italic;
+}
+.chat-bericht-regel {
+  margin: 2px 0;
+  line-height: 1.4;
+}
+.chat-tijd {
+  color: #547991;
+  font-size: 11px;
+  margin-right: 6px;
+}
+.chat-gebruiker {
+  color: #00cfff;
+  font-weight: bold;
+}
+.chat-text {
+  color: #fff;
 }
 .chat-input-bar {
   display:grid;
@@ -162,7 +184,6 @@ th{color:#547991;font-weight:normal;background:#030f17;}
       <input type="text" id="zoek" class="zoekvak" placeholder="ik zoek hier" onkeyup="zoekFunctie()">
     </div>
     <div class="banner-rechts">
-      <!-- Dummy radio afbeeldingen gesimuleerd conform origineel design -->
       <svg width="120" height="160" viewBox="0 0 100 150" style="position:absolute; left:20px; top:20px;">
         <rect x="15" y="20" width="50" height="100" rx="6" fill="#15191d" stroke="#333" stroke-width="2"/>
         <rect x="22" y="30" width="36" height="40" rx="3" fill="#000" stroke="#00cfff" stroke-width="1"/>
@@ -212,11 +233,11 @@ th{color:#547991;font-weight:normal;background:#030f17;}
   <div class="chatbox">
     <div class="chattitle">💬 Chat - POC RADIO BE</div>
     <div class="chat-window" id="chat-box">
-      Nog geen berichten. Start de chat!
+      <span class="chat-placeholder" id="placeholder-text">Nog geen berichten. Start de chat!</span>
     </div>
     <div class="chat-input-bar">
       <input type="text" id="chat-naam" class="chat-input" value="on3osi" placeholder="Jouw naam">
-      <input type="text" id="chat-bericht" class="chat-input" placeholder="Typ hier je bericht...">
+      <input type="text" id="chat-bericht" class="chat-input" placeholder="Typ hier je bericht..." onkeydown="checkEnter(event)">
       <button class="btn-versturen" onclick="verstuurBericht()">➤ Versturen</button>
     </div>
   </div>
@@ -235,59 +256,44 @@ th{color:#547991;font-weight:normal;background:#030f17;}
     <div class="footer-rechts">
       Dank aan<br>
       🌐 <strong>GLOBAL-PTT</strong><br>
-      <span style="font-size:11px; color:#547991;">Samen maken we communicatie sterker!</span>
+      <span style="font-size:11px; color:#547991;">Samen maken we communicatie mogelijk</span>
     </div>
   </div>
 </div>
 
+<!-- TOEGEVOEGDE JAVASCRIPT CODE VOOR DE WERKENDE CHATBOX -->
 <script>
-// Live data ophalen van de portofoons
-function laadData() {
-  fetch('/api/users')
-    .then(res => res.json())
-    .then(data => {
-      const onBody = document.querySelector('#online-table tbody');
-      const offBody = document.querySelector('#offline-table tbody');
-      
-      let onlineHtml = '';
-      let offlineHtml = '';
+  let eersteBericht = true;
 
-      data.forEach(g => {
-        if(g.online) {
-          onlineHtml += `<tr><td class="berichtnaam" style="color:#fff; font-weight:bold;">${g.naam}</td><td class="on" style="color:#20ef76;">● Online</td><td>${g.tijd || '-'}</td></tr>`;
-        } else {
-          offlineHtml += `<tr><td class="berichtnaam">${g.naam}</td><td class="off" style="color:#ff6574;">● Offline</td><td>${g.laast_gezien || '-'}</td></tr>`;
-        }
-      });
+  function verstuurBericht() {
+    const naamInput = document.getElementById('chat-naam');
+    const berichtInput = document.getElementById('chat-bericht');
+    const chatBox = document.getElementById('chat-box');
+    const placeholder = document.getElementById('placeholder-text');
 
-      if(onlineHtml) onBody.innerHTML = onlineHtml;
-      if(offlineHtml) offBody.innerHTML = offlineHtml;
-    }).catch(err => {
-      console.log("Wachten op live database koppeling...");
-    });
-}
+    const naam = naamInput.value.trim();
+    const bericht = berichtInput.value.trim();
 
-// Zoekbalk filterfunctie
-function zoekFunctie() {
-  let input = document.getElementById("zoek").value.toLowerCase();
-  let rows = document.querySelectorAll("table tbody tr");
-  rows.forEach(row => {
-    let nameNode = row.querySelector(".berichtnaam");
-    if(nameNode) {
-      let text = nameNode.innerText.toLowerCase();
-      row.style.display = text.includes(input) ? "" : "none";
+    // Controleer of het bericht niet leeg is
+    if (bericht === '') {
+      return;
     }
-  });
-}
 
-// Bericht versturen simulator
-function verstuurBericht() {
-  const naam = document.getElementById('chat-naam').value;
-  const bericht = document.getElementById('chat-bericht').value;
-  if(!bericht.trim()) return;
-  
-  const chatBox = document.getElementById('chat-box');
-  if(chatBox.innerText.includes("Nog geen berichten")) {
-    chatBox.innerHTML = '';
-  }
-  
+    // Verwijder de "Nog geen berichten" tekst bij het eerste echte bericht
+    if (eersteBericht && placeholder) {
+      chatBox.innerHTML = '';
+      eersteBericht = false;
+    }
+
+    // Haal de huidige tijd op (HH:MM)
+    const nu = new Date();
+    const tijd = nu.getHours().toString().padStart(2, '0') + ':' + nu.getMinutes().toString().padStart(2, '0');
+
+    // Bouw de HTML-structuur voor het nieuwe berichtregel
+    const berichtElement = document.createElement('div');
+    berichtElement.className = 'chat-bericht-regel';
+    berichtElement.innerHTML = `<span class="chat-tijd">[${tijd}]</span> <span class="chat-gebruiker">${naam || 'Anoniem'}:</span> <span class="chat-text">${bericht}</span>`;
+
+    // Voeg het bericht toe aan het venster
+    chatBox.appendChild(berichtElement);
+
