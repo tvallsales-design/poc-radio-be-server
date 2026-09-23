@@ -22,24 +22,20 @@ def controleer_en_vul_database():
             )
         ''')
         
-        # HIER KUN JE JOUW EIGEN ONLINE EN OFFLINE GEBRUIKERS TOEVOEGEN!
-        # Structuur: ("Naam", 1 voor Online / 0 voor Offline, "Tijdstip")
+        # De online lijst is nu helemaal leeg gemaakt!
         mijn_gebruikers = [
-            # --- JOUW ONLINE GEBRUIKERS (GROEN) ---
-            ("ON3OSJ - Handheld", 1, "Nu online"),
-            ("ROEPNAAM-1", 1, "Nu online"),
-            ("ROEPNAAM-2", 1, "Nu online"),
-            ("ROEPNAAM-3", 1, "Nu online"),
+            # --- ONLINE GEBRUIKERS (NU LEEG) ---
             
-            # --- JOUW OFFLINE GEBRUIKERS (ROOD) ---
+            # --- OFFLINE GEBRUIKERS ---
             ("ON1ZV - Repeater", 0, "23-09 12:15"),
             ("ON2ACO - Mobiel", 0, "22-09 19:40")
         ]
         
         cursor.execute("DELETE FROM users")
-        cursor.executemany("INSERT OR REPLACE INTO users (naam, online, laast_gezien) VALUES (?, ?, ?)", mijn_gebruikers)
+        if mijn_gebruikers:
+            cursor.executemany("INSERT OR REPLACE INTO users (naam, online, laast_gezien) VALUES (?, ?, ?)", mijn_gebruikers)
         conn.commit()
-        print("Jouw eigen gebruikerslijst is succesvol geüpdatet!")
+        print("De database is succesvol bijgewerkt met een lege online lijst!")
         
     except Exception as e:
         print("Database initialisatie fout:", e)
