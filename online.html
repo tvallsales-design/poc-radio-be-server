@@ -198,99 +198,46 @@ th{color:#547991;font-weight:normal;background:#030f17;}
         </tbody>
       </table>
     </div>
-    <div class="tablebox">
-      <div class="tabletitle" style="color:#ff6574;">🔴 Offline gebruikers</div>
+    <div class="tablebox" style="max-height: 400px; overflow-y: auto;">
+      <div class="tabletitle" style="color:#ff6574; position: sticky; top: 0; z-index: 10;">🔴 Offline gebruikers</div>
       <table id="offline-table">
         <thead>
-          <tr><th style="width:30%;">Naam</th><th style="width:35%;">Status</th><th style="width:35%;">Laatst online</th></tr>
+          <tr style="position: sticky; top: 40px; background: #030f17; z-index: 9;">
+            <th style="width:40%;">Naam</th>
+            <th style="width:30%;">Status</th>
+            <th style="width:30%;">Laatst online</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td colspan="3" style="text-align:left; color:#547991; font-style:italic; padding:15px 18px;">Geen offline radio's.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
-  <div class="info-label">IMEI, batterij en GPS worden niet openbaar getoond.</div>
-
-  <!-- Chat Module -->
-  <div class="chatbox">
-    <div class="chattitle">💬 Chat - POC RADIO BE</div>
-    <div class="chat-window" id="chat-box">
-      <span class="chat-placeholder" id="placeholder-text">Nog geen berichten. Start de chat!</span>
-    </div>
-    <div class="chat-input-bar">
-      <!-- ID's toegevoegd voor de JavaScript-koppeling -->
-      <input type="text" id="chat-naam" class="chat-input" value="PATJE" placeholder="Jouw naam">
-      <input type="text" id="chat-bericht" class="chat-input" placeholder="Typ hier je bericht..." onkeydown="checkEnter(event)">
-      <button class="btn-versturen" onclick="verstuurBericht()">➤ Versturen</button>
-    </div>
-  </div>
-
-  <!-- Footer onderkant -->
-  <div class="footer">
-    <div class="footer-links">
-      <h3>POC RADIO BE</h3>
-      <p>VERKOOP • VERHUUR • SERVICE • SUPPORT</p>
-    </div>
-    <div class="footer-center">
-      ✉ Contact - POC RADIO BE<br>
-      <a href="mailto:pocradiobe@hotmail.com">pocradiobe@hotmail.com</a><br>
-      <span style="font-size:11px; color:#547991;">Vragen, info of ondersteuning? Neem gerust contact op!</span>
-    </div>
-    <div class="footer-rechts">
-      Dank aan<br>
-      🌐 <strong>GLOBAL-PTT</strong><br>
-      <span style="font-size:11px; color:#547991;">Samen maken we communicatie mogelijk</span>
-    </div>
-  </div>
-</div>
-
-<!-- FUNCTIONALITEIT VOOR DE CHATBOX -->
-<script>
-  let eersteBericht = true;
-
-  function verstuurBericht() {
-    const naamInput = document.getElementById('chat-naam');
-    const berichtInput = document.getElementById('chat-bericht');
-    const chatBox = document.getElementById('chat-box');
-    const placeholder = document.getElementById('placeholder-text');
-
-    const naam = naamInput.value.trim();
-    const bericht = berichtInput.value.trim();
-
-    if (bericht === '') {
-      return;
-    }
-
-    if (eersteBericht && placeholder) {
-      chatBox.innerHTML = '';
-      eersteBericht = false;
-    }
-
-    const nu = new Date();
-    const tijd = nu.getHours().toString().padStart(2, '0') + ':' + nu.getMinutes().toString().padStart(2, '0');
-
-    const berichtElement = document.createElement('div');
-    berichtElement.style.margin = '2px 0';
-    berichtElement.style.lineHeight = '1.4';
-    berichtElement.innerHTML = `<span style="color:#547991; font-size:11px; margin-right:6px;">[${tijd}]</span> <span style="color:#00cfff; font-weight:bold;">${naam || 'Anoniem'}:</span> <span style="color:#fff;">${bericht}</span>`;
-
-    chatBox.appendChild(berichtElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    berichtInput.value = '';
-  }
-
-  function checkEnter(event) {
-    if (event.key === 'Enter') {
-      verstuurBericht();
-    }
-  }
-
-  function zoekFunctie() {
-    console.log("Zoeken...");
-  }
-</script>
-
-</body>
-</html>
+          <!-- Lijst met ingeladen radio-gebruikers uit uw bestand -->
+          <tr><td>432,550 + oproepkanaal club snw</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>O P 0 J POC</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON0GAL repeter</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON0PAJ Repeter</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>on0wl</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON1ZV</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON2ACO Thierr P aprs-7</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON2ACO Thierry P aprs-7</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>on2 bruno 3</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON2BV Brono P aprs -5</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON2BV Bruno P aprs-5</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON2PJ Peter P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BEA ANNFILINE</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BEA Bart M aprs-on3bea-14</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BEA Bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BEA Bart v1 Mobil</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BHL bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BPA Bart B</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3BPA Bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3DB Jan P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3DF Davit portabel</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3DGB Dora P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3DGH Pordabel Marc-Minne</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3EMD Eddy P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3GBH Geert P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3GBH Gert M</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3GBH Gert p</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3GDV Paul P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3GHZ Gillis P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3NLY Nadine P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+          <tr><td>ON3OSI B-houtenbrak</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
