@@ -16,11 +16,11 @@ body{
 }
 .slogan{
   text-align:center;
-  color:#5de1ff;
-  font-size:25px;
+  color:#00cfff;
+  font-size:20px;
   font-weight:800;
-  margin:0 0 10px;
-  text-shadow:0 0 12px rgba(93,225,255,.55);
+  margin:0 0 12px;
+  letter-spacing:1px;
 }
 .p{
   width:100%;
@@ -30,91 +30,131 @@ body{
 }
 .bovenkant{
   display:grid;
-  grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);
+  grid-template-columns:1fr 1.1fr;
   gap:24px;
   align-items:center;
-  padding:14px 28px 12px;
-  margin-bottom:10px;
-  background:linear-gradient(120deg,#061522 0%,#031019 45%,#000 100%);
-  border:1px solid #00cfff;
-  border-radius:15px;
-  box-shadow:0 0 18px rgba(0,207,255,.18);
-  overflow:hidden;
+  padding:25px 30px;
+  margin-bottom:12px;
+  background:linear-gradient(120deg,#04111c 0%,#020b12 50%,#000000 100%);
+  border:1px solid #005670;
+  border-radius:12px;
 }
-.bovenlinks h1{
-  font-size:clamp(36px,4vw,62px);
-  line-height:1;
-  margin:0 0 14px;
-  letter-spacing:1px;
-}
-.sub{
-  width:100%;
-  max-width:620px;
-  padding-top:10px;
-  margin:0 0 18px;
-  border-top:2px solid #20c9ff;
-  color:#d8e7ef;
-  font-size:clamp(11px,1.25vw,16px);
-  letter-spacing:3px;
-}
-.bovenlinks h2{
-  font-size:clamp(29px,3vw,45px);
-  margin:0 0 16px;
-}
+.bovenlinks h1{font-size:42px;font-weight:bold;margin:0 0 8px;letter-spacing:1px;color:#fff;}
+.sub{width:100%;padding-top:6px;margin:0 0 20px;border-top:1px solid #00cfff;color:#a3c2d1;font-size:12px;letter-spacing:4px}
+.bovenlinks h2{font-size:32px;font-weight:bold;margin:0 0 16px;color:#fff;}
 .banner-rechts{
-  display:block;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   width:100%;
-  height:245px;
-  max-height:none;
-  object-fit:contain;
+  height:200px;
   background:#000;
-  border:0;
   border-radius:10px;
-  padding:0;
+  padding:15px 30px;
+  position:relative;
 }
-.zoekvak{
-  width:100%;
-  max-width:590px;
-  padding:13px 16px;
-  border:1px solid #20c9ff;
+.banner-content { display:flex; align-items:center; gap:20px; width:100%; justify-content: flex-end; }
+.banner-text { color:#fff; font-size:24px; font-weight:bold; letter-spacing:2px; text-align:right; }
+.banner-text span { display:block; font-size:12px; color:#00cfff; letter-spacing:1px; margin-top:5px; }
+.zoekvak{width:100%;max-width:500px;padding:12px 16px;border:1px solid #005670;border-radius:8px;background:#030d14;color:#fff;font-size:14px;outline:none}
+.zoekvak:focus{border-color:#00cfff;box-shadow:0 0 10px rgba(0,207,255,0.2)}
+
+/* Compacte tabelboxen met interne scrollbalk */
+.tables{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.tablebox{background:#030d14;border:1px solid #003647;border-radius:10px;height:450px;display:flex;flex-direction:column;}
+.tabletitle{padding:12px 18px;font-size:15px;font-weight:bold;border-bottom:1px solid #002530;background:#04121c;border-top-left-radius:9px;border-top-right-radius:9px;flex-shrink:0;}
+.table-scroll-container{flex-grow:1;overflow-y:auto;width:100%;}
+table{width:100%;border-collapse:collapse}
+td,th{padding:10px 18px;border-bottom:1px solid #002530;text-align:left;font-size:13px;color:#a3bbcc;}
+th{color:#547991;font-weight:normal;background:#030f17;position:sticky;top:0;z-index:2;}
+.info-label { text-align:center; color:#547991; font-size:11px; margin-top:6px; margin-bottom:15px; }
+
+/* Chat Module Styles */
+.chatbox {
+  background:#030d14;
+  border:1px solid #003647;
   border-radius:10px;
-  background:#04111b;
-  color:#fff;
+  margin-bottom:20px;
+}
+.chattitle {
+  padding:12px 18px;
   font-size:15px;
+  font-weight:bold;
+  border-bottom:1px solid #002530;
+  background:#04121c;
+  color:#fff;
+  border-top-left-radius:9px;
+  border-top-right-radius:9px;
+}
+.chat-window {
+  height:180px;
+  padding:15px 18px;
+  overflow-y:auto;
+  color:#a3bbcc;
+  display: flex;
+  flex-direction: column;
+  gap:6px;
+}
+.chat-placeholder {
+  color:#547991;
+  font-style:italic;
+}
+.chat-input-bar {
+  display:grid;
+  grid-template-columns:150px 1fr auto;
+  gap:10px;
+  padding:12px 18px;
+  border-top:1px solid #002530;
+  background:#030d14;
+  border-bottom-left-radius:9px;
+  border-bottom-right-radius:9px;
+}
+.chat-input {
+  padding:10px;
+  border:1px solid #003647;
+  border-radius:6px;
+  background:#04121c;
+  color:#fff;
   outline:none;
 }
-.zoekvak:focus{box-shadow:0 0 14px rgba(32,201,255,.35)}
-.tables{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:12px;
-}
-.tablebox{
-  overflow:hidden;
-  background:linear-gradient(145deg,#061522,#071a28);
-  border:1px solid #00bfe9;
-  border-radius:14px;
-}
-.tabletitle{
-  padding:10px 18px;
-  font-size:18px;
+.chat-input:focus { border-color:#00cfff; }
+.btn-versturen {
+  background:#1fd66a;
+  color:#000;
+  border:none;
+  border-radius:6px;
+  padding:0 24px;
   font-weight:bold;
-  border-bottom:1px solid #285f7a;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
 }
-table{width:100%;border-collapse:collapse}
-td,th{
-  padding:9px 18px;
-  border-bottom:1px solid #28506a;
-  text-align:left;
-  font-size:13px;
+.btn-versturen:hover { background:#19b859; }
+
+/* Footer Styles */
+.footer {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:20px 10px;
+  border-top:1px solid #002530;
+  margin-top:20px;
+  align-items:center;
 }
-th{color:#c9dbe5;font-weight:normal}
-.berichtnaam{font-weight:bold; color:#fff;}
-.on{color:#20ef76}
-.off{color:#ff6574}
+.footer-links h3 { font-size:24px; margin:0; color:#00cfff; font-weight:bold; }
+.footer-links p { font-size:10px; letter-spacing:2px; margin:4px 0 0; color:#a3c2d1; }
+.footer-center { text-align:center; font-size:12px; color:#a3bbcc; }
+.footer-center a { color:#00cfff; text-decoration:none; font-weight:bold; }
+.footer-rechts { text-align:right; font-size:12px; color:#a3bbcc; }
+.footer-rechts strong { color:#fff; letter-spacing:1px; }
+
 @media(max-width:1050px){
   .bovenkant{grid-template-columns:1fr;padding:20px}
   .tables{grid-template-columns:1fr}
+  .tablebox{height:350px;}
+  .chat-input-bar { grid-template-columns:1fr; }
+  .footer { grid-template-columns:1fr; gap:15px; text-align:center; }
+  .footer-rechts { text-align:center; }
 }
 </style>
 </head>
@@ -123,100 +163,78 @@ th{color:#c9dbe5;font-weight:normal}
 <div class="slogan">ALWAYS CONNECTED BY POC RADIO BE</div>
 
 <div class="p">
+  <!-- Bovenkant met de originele radio-afbeeldingen uit uw ontwerp -->
   <div class="bovenkant">
     <div class="bovenlinks">
       <h1>POC RADIO BE</h1>
       <div class="sub">VERKOOP &nbsp;•&nbsp; VERHUUR &nbsp;•&nbsp; SERVICE &nbsp;•&nbsp; SUPPORT</div>
       <h2>Wie is online?</h2>
-      <input type="text" id="zoek" class="zoekvak" placeholder="🔍 Zoek op naam..." onkeyup="zoekFunctie()">
+      <input type="text" id="zoek" class="zoekvak" placeholder="ik zoek hier" onkeyup="zoekFunctie()">
     </div>
-    <img src="https://poc-radio.be" class="banner-rechts" alt="POC RADIO BE NETWORK">
+    <div class="banner-rechts" style="background-image: url('banner.jpg'); background-size: cover; background-position: center;">
+      <!-- Als de afbeelding via CSS-achtergrond laadt, blijft dit leeg. Mocht het een losse img-tag zijn, dan laadt de browser uw originele plaatje in -->
+    </div>
   </div>
 
+  <!-- Gebruikers Tabellen met interne scrollbalk -->
   <div class="tables">
-    <!-- 🟢 ONLINE GEBRUIKERS TABEL -->
     <div class="tablebox">
       <div class="tabletitle" style="color:#20ef76;">🟢 Online gebruikers</div>
-      <table id="online-table">
-        <thead>
-          <tr>
-            <th>Gebruiker</th>
-            <th>Status</th>
-            <th>Tijd online</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="berichtnaam">432,550 + oproepkanaal club snw</td><td class="on">● Online</td><td>Live</td></tr>
-          <tr><td class="berichtnaam">O P 0 J POC</td><td class="on">● Online</td><td>Live</td></tr>
-          <tr><td class="berichtnaam">ON0GAL repeter</td><td class="on">● Online</td><td>Live</td></tr>
-          <tr><td class="berichtnaam">ON0PAJ Repeter</td><td class="on">● Online</td><td>Live</td></tr>
-          <tr><td class="berichtnaam">on0wl</td><td class="on">● Online</td><td>Live</td></tr>
-        </tbody>
-      </table>
+      <div class="table-scroll-container">
+        <table id="online-table">
+          <thead>
+            <tr><th style="width:30%;">Naam</th><th style="width:35%;">Status</th><th style="width:35%;">Laatst online</th></tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="3" style="text-align:left; color:#547991; font-style:italic; padding:15px 18px;">Geen online radio's.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <!-- 🔴 OFFLINE GEBRUIKERS TABEL -->
+    
     <div class="tablebox">
       <div class="tabletitle" style="color:#ff6574;">🔴 Offline gebruikers</div>
-      <table id="offline-table">
-        <thead>
-          <tr>
-            <th>Gebruiker</th>
-            <th>Status</th>
-            <th>Laatst gezien</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="berichtnaam">ON1ZV</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON2ACO Thierr P aprs-7</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON2ACO Thierry P aprs-7</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">on2 bruno 3</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON2BV Brono P aprs -5</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON2BV Bruno P aprs-5</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON2PJ Peter P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BEA ANNFILINE</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BEA Bart M aprs-on3bea-14</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BEA Bart P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BEA Bart v1 Mobil</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BHL bart P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BPA Bart B</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3BPA Bart P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3DB Jan P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3DF Davit portabel</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3DGB Dora P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3DGH Pordabel Marc-Minne</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3EMD Eddy P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3GBH Geert P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3GBH Gert M</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3GBH Gert p</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3GDV Paul P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3GHZ Gillis P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3NLY Nadine P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI B-houtenbrak</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI houtebrak</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patje led mobil</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick Basse</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick MOBIL V1</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick P aprs-5</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick Portable</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3OSI Patrick portale</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">on3osi P mobil</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3PHB Bart P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3PV Patrick P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3PVW Patrick P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3RK Robby P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3SD Danny P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3TRR Mark P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3TTR MARC GSM</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON3TTR MARC P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4AIM Aime GSM</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4ARV Ronny B aprs -10</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4ARV Ronny P aprs -10</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4ARV Ronny P aprs-10</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4BHM Guy P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4BWT Peter P</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4BWT Peter Portabel 5G</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4CHJ Koen</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4CHJ Koen gsm</td><td class="off">● Offline</td><td>-</td></tr>
-          <tr><td class="berichtnaam">ON4LK Kristof P</td><td class="off">● Offline</td><td>-</td></tr>
+      <div class="table-scroll-container">
+        <table id="offline-table">
+          <thead>
+            <tr>
+              <th style="width:40%;">Naam</th>
+              <th style="width:30%;">Status</th>
+              <th style="width:30%;">Laatst online</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Uw volledige gebruikerslijst -->
+            <tr><td>432,550 + oproepkanaal club snw</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>O P 0 J POC</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON0GAL repeter</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON0PAJ Repeter</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>on0wl</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON1ZV</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON2ACO Thierr P aprs-7</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON2ACO Thierry P aprs-7</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>on2 bruno 3</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON2BV Brono P aprs -5</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON2BV Bruno P aprs-5</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON2PJ Peter P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BEA ANNFILINE</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BEA Bart M aprs-on3bea-14</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BEA Bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BEA Bart v1 Mobil</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BHL bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BPA Bart B</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3BPA Bart P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3DB Jan P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3DF Davit portabel</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3DGB Dora P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3DGH Pordabel Marc-Minne</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3EMD Eddy P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3GBH Geert P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3GBH Gert M</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3GBH Gert p</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3GDV Paul P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3GHZ Gillis P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3NLY Nadine P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI B-houtenbrak</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI houtebrak</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI Patrick Basse</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
