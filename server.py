@@ -29,7 +29,7 @@ def haal_gebruikers_op():
     
     gebruikers = []
     for r in rows:
-        # De exacte database-kolommen worden hier nu wél goed uitgelezen!
+        # Hier worden de kolommen nu gegarandeerd correct uitgelezen via indexnummers
         gebruikers.append({
             "naam": r[0] if len(r) > 0 and r[0] else "Onbekend",
             "online": bool(r[1]) if len(r) > 1 else False,
