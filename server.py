@@ -22,25 +22,40 @@ def haal_gebruikers_op():
     
     gebruikers = []
     for r in rows:
-        gebruikers.append({"naam": r[0], "online": bool(r[1]), "tijd": r[2], "laast_gezien": r[3]})
+        gebruikers.append({
+            "naam": r[0],
+            "online": bool(r[1]),
+            "tijd": r[2] if r[2] else "-",
+            "laast_gezien": r[3] if r[3] else "-"
+        })
     return gebruikers
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
+        # Als er gezocht wordt naar de API, geef de gebruikerslijst door
         if self.path == '/api/users':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(haal_gebruikers_op()).encode('utf-8'))
-        elif self.path == '/' or self.path == '/online.html':
+        
+        # Als de website geladen wordt (via / of /online.html), toon de HTML-pagina
+        elif self.path == '/' or self.path == '/online.html' or self.path == '/index.html':
             self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
-            with open('online.html', 'r', encoding='utf-8') as f:
-                self.wfile.write(f.read().encode('utf-8'))
+            
+            # Controleer of het bestand online.html lokaal bestaat om in te laden
+            bestandsnaam = 'online.html'
+            if os.path.exists(bestandsnaam):
+                with open(bestandsnaam, 'r', encoding='utf-8') as f:
+                    self.wfile.write(f.read().encode('utf-8'))
+            else:
+                self.wfile.write(b"<h1>online.html niet gevonden op de server</h1>")
         else:
+            # Fallback voor stylesheets of afbeeldingen
             super().do_GET()
 
 with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
-    print("Server draait op poort", PORT)
+    print("Server draait succesvol op poort", PORT)
     httpd.serve_forever()
