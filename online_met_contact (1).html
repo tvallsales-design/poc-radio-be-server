@@ -1,11 +1,7 @@
     <script>
         let alleGebruikers = [];
-        let isLadenGebruikers = false;
-        let isLadenChat = false;
 
         async function laadGebruikers() {
-            if (isLadenGebruikers) return; // Voorkom dat er dubbele aanvragen lopen
-            isLadenGebruikers = true;
             try {
                 const response = await fetch('/api/users');
                 if (response.ok) {
@@ -14,8 +10,6 @@
                 }
             } catch (error) {
                 console.error("Fout bij laden gebruikers:", error);
-            } finally {
-                isLadenGebruikers = false;
             }
         }
 
@@ -57,8 +51,6 @@
         }
 
         async function laadChat() {
-            if (isLadenChat) return; // Voorkom dat er dubbele aanvragen lopen
-            isLadenChat = true;
             try {
                 const res = await fetch('/api/chat');
                 if (!res.ok) return;
@@ -74,8 +66,6 @@
                 }
             } catch(e) {
                 console.error("Fout bij laden chat:", e);
-            } finally {
-                isLadenChat = false;
             }
         }
 
@@ -104,17 +94,10 @@
             }
         }
 
-        // We gebruiken nu setTimeout in plaats van setInterval. 
-        // Dit wacht ALTIJD netjes tot de vorige aanvraag klaar is, plus 5 seconden pauze.
-        function startTimers() {
-            laadGebruikers().then(() => {
-                setTimeout(laadGebruikers, 5000);
-            });
-            laadChat().then(() => {
-                setTimeout(laadChat, 3000);
-            });
-        }
+        // Dit is de stabiele en veilige manier: haal de data op en herhaal dit rustig elke 4 en 5 seconden
+        laadGebruikers();
+        laadChat();
         
-        // Start het systeem zodra de pagina geladen is
-        window.onload = startTimers;
+        setInterval(laadGebruikers, 5000);
+        setInterval(laadChat, 4000);
     </script>
