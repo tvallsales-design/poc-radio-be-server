@@ -1,67 +1,192 @@
-import http.server
-import socketserver
-import json
-import sqlite3
-import os
-
-PORT = 10000
-
-# Dit zorgt ervoor dat Python ALTIJD naar de juiste hoofdmap kijkt
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# We gebruiken de actieve database uit je lijst
-DB_FILE = os.path.join(BASE_DIR, "poc_radio.db")
-
-def haal_gebruikers_op():
-    if not os.path.exists(DB_FILE):
-        return []
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT naam, online, tijd, laast_gezien FROM users")
-        rows = cursor.fetchall()
-    except:
-        rows = []
-    conn.close()
-    
-    gebruikers = []
-    for r in rows:
-        gebruikers.append({
-            "naam": r[0] if len(r) > 0 else "Onbekend",
-            "online": bool(r[1]) if len(r) > 1 else False,
-            "tijd": r[2] if len(r) > 2 and r[2] else "-",
-            "laast_gezien": r[3] if len(r) > 3 and r[3] else "-"
-        })
-    return gebruikers
-
-class MyHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        # API Route voor gebruikers
-        if self.path == '/api/users':
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(haal_gebruikers_op()).encode('utf-8'))
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wie is online? - POC RADIO BE</title>
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0; width: 100%;
+            background-color: #000000; color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .top-banner {
+            text-align: center; color: #00bcff; font-size: 14px; font-weight: bold;
+            letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase;
+        }
+        .header-section {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #005580; padding-bottom: 15px; margin-bottom: 20px;
+        }
+        .logo-area h1 { color: #ffffff; font-size: 32px; margin: 0; font-weight: bold; letter-spacing: 1px; }
+        .nav-links { margin-top: 10px; font-size: 13px; color: #a0a0a0; }
+        .nav-links span { margin-right: 15px; text-transform: uppercase; }
+        .page-title { font-size: 28px; font-weight: bold; margin: 20px 0 10px 0; }
+        .search-box {
+            width: 100%; max-width: 400px; background-color: #010b14;
+            border: 1px solid #005580; border-radius: 6px; padding: 10px;
+            color: #ffffff; font-size: 14px; margin-bottom: 25px;
+        }
+        .users-grid { display: flex; gap: 20px; margin-bottom: 20px; }
+        .panel {
+            flex: 1; background-color: #010b14; border: 1px solid #003f5c;
+            border-radius: 8px; padding: 15px; height: 400px; display: flex; flex-direction: column;
+        }
+        .panel-header { font-size: 16px; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; display: inline-block; }
+        .dot.online { background-color: #00e676; }
+        .dot.offline { background-color: #ff3d00; }
         
-        # Website hoofdpagina Routes
-        elif self.path in ['/', '/online.html', '/index.html']:
-            self.send_response(200)
-            self.send_header('Content-Type', 'text/html; charset=utf-8')
-            self.end_headers()
-            
-            # Koppel het absolute pad naar online.html
-            html_pad = os.path.join(BASE_DIR, 'online.html')
-            
-            if os.path.exists(html_pad):
-                with open(html_pad, 'r', encoding='utf-8') as f:
-                    self.wfile.write(f.read().encode('utf-8'))
-            else:
-                # Mocht hij het bestand écht niet vinden, dan zien we nu precies waar hij zoekt
-                fout_bericht = f"<h1>Fout: online.html niet gevonden op locatie: {html_pad}</h1>"
-                self.wfile.write(fout_bericht.encode('utf-8'))
-        else:
-            super().do_GET()
+        .table-wrapper { flex: 1; overflow-y: auto; }
+        .status-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #ffffff; text-align: left; }
+        .status-table th { padding-bottom: 8px; font-weight: bold; border-bottom: 1px solid #005580; color: #a0a0a0; position: sticky; top: 0; background-color: #010b14; }
+        .status-table td { padding: 10px 0; border-bottom: 1px solid #002233; }
+        .status-online { color: #00e676; font-weight: bold; }
+        .status-offline { color: #ff3d00; font-weight: bold; }
+        
+        .info-note { font-size: 11px; color: #666; text-align: center; margin-bottom: 20px; }
+        .chat-panel { background-color: #010b14; border: 1px solid #003f5c; border-radius: 8px; padding: 15px; margin-bottom: 30px; }
+        .chat-header { font-size: 16px; font-weight: bold; margin-bottom: 15px; }
+        .chat-box { height: 120px; color: #a0a0a0; font-size: 14px; overflow-y: auto; border: 1px solid #002233; padding: 10px; background: #000; border-radius: 4px; }
+        .chat-inputs { display: flex; gap: 10px; margin-top: 15px; }
+        .input-name { width: 150px; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
+        .input-message { flex: 1; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
+        .btn-send { background-color: #00e676; color: #000000; border: none; border-radius: 4px; padding: 0 25px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        
+        .footer-section { border-top: 1px solid #002233; padding-top: 20px; display: flex; justify-content: space-between; font-size: 12px; color: #a0a0a0; }
+        .footer-center { text-align: center; }
+        .footer-center a { color: #ffffff; text-decoration: none; }
+        .global-ptt-logo { color: #00bcff; font-weight: bold; }
+    </style>
+</head>
+<body>
 
-with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
-    print("Server draait succesvol op poort", PORT)
-    httpd.serve_forever()
+    <div class="top-banner">Always Connected by POC Radio BE</div>
+
+    <div class="container">
+        <div class="header-section">
+            <div class="logo-area">
+                <h1>POC RADIO BE</h1>
+                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span></div>
+            </div>
+            <div style="color:#00bcff; font-weight:bold; font-size:18px;">GLOBAL-PTT<br><span style="font-size:10px; color:#aaa;">NETWORK & INFRASTRUCTURE</span></div>
+        </div>
+
+        <div class="page-title">Wie is online?</div>
+        <input type="text" id="search" class="search-box" placeholder="ik zoek hier..." oninput="updateTabellen()">
+
+        <div class="users-grid">
+            <!-- Online Panel -->
+            <div class="panel">
+                <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
+                <div class="table-wrapper">
+                    <table class="status-table">
+                        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
+                        <tbody id="online-users"><tr><td colspan="3">Laden...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Offline Panel -->
+            <div class="panel">
+                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
+                <div class="table-wrapper">
+                    <table class="status-table">
+                        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
+                        <tbody id="offline-users"><tr><td colspan="3">Laden...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-note">IMEI, batterij en GPS worden niet openbaar getoond</div>
+
+        <!-- Chatbox -->
+        <div class="chat-panel">
+            <div class="chat-header">💬 Chat - POC RADIO BE</div>
+            <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
+            <div class="chat-inputs">
+                <input type="text" id="chat-name" class="input-name" value="on3osj">
+                <input type="text" id="chat-msg" class="input-message" placeholder="Typ hier je bericht...">
+                <button class="btn-send" onclick="verstuurBericht()">➤ Versturen</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div><strong>POC RADIO BE</strong><br><span style="font-size:10px; color:#555;">VERKOOP - VERHUUR - SERVICE - SUPPORT</span></div>
+            <div class="footer-center">📬 Contact - POC RADIO BE<br><a href="mailto:pocradiobe@hotmail.com">pocradiobe@hotmail.com</a><br><span style="font-size:10px; color:#666;">Vragen, info of ondersteuning? Neem gerust contact op!</span></div>
+            <div class="footer-right">Dank aan<br><span class="global-ptt-logo">🌐 GLOBAL-PTT</span><br><span style="font-size:10px; color:#aaa;">Samen maken we communicatie sterker!</span></div>
+        </div>
+    </div>
+
+    <script>
+        let alleGebruikers = [];
+
+        async function laadGebruikers() {
+            try {
+                const response = await fetch('/api/users');
+                alleGebruikers = await response.json();
+                updateTabellen();
+            } catch (error) {
+                console.error("Fout bij laden gebruikers:", error);
+            }
+        }
+
+        function updateTabellen() {
+            const zoekTerm = document.getElementById('search').value.toLowerCase();
+            const onlineTbody = document.getElementById('online-users');
+            const offlineTbody = document.getElementById('offline-users');
+            
+            let onlineHtml = '';
+            let offlineHtml = '';
+
+            const gefilterd = alleGebruikers.filter(u => u.naam.toLowerCase().includes(zoekTerm));
+
+            const onlineLijst = gefilterd.filter(u => u.online);
+            const offlineLijst = gefilterd.filter(u => !u.online);
+
+            if(onlineLijst.length === 0) {
+                onlineHtml = '<tr><td colspan="3">Geen online radio\'s</td></tr>';
+            } else {
+                onlineLijst.forEach(u => {
+                    onlineHtml += `<tr><td>${u.naam}</td><td class="status-online">Online</td><td>${u.laast_gezien || '-'}</td></tr>`;
+                });
+            }
+
+            if(offlineLijst.length === 0) {
+                offlineHtml = '<tr><td colspan="3">Geen offline radio\'s</td></tr>';
+            } else {
+                offlineLijst.forEach(u => {
+                    offlineHtml += `<tr><td>${u.naam}</td><td class="status-offline">Offline</td><td>${u.laast_gezien || '-'}</td></tr>`;
+                });
+            }
+
+            onlineTbody.innerHTML = onlineHtml;
+            offlineTbody.innerHTML = offlineHtml;
+        }
+
+        async function laadChat() {
+            try {
+                const res = await fetch('/api/chat');
+                const berichten = await res.json();
+                const chatBox = document.getElementById('chat-box');
+                if(berichten.length === 0) {
+                    chatBox.innerHTML = "Nog geen berichten. Start de chat!";
+                } else {
+                    chatBox.innerHTML = berichten.map(b => `<div><strong>[${b.tijd}] ${b.naam}:</strong> ${b.bericht}</div>`).join('');
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            } catch(e) {}
+        }
+
+        async function verstuurBericht() {
+            const naam = document.getElementById('chat-name').value;
+            const bericht = document.getElementById('chat-msg').value;
+            if(!bericht.trim()) return;
+
+            await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
