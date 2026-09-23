@@ -15,7 +15,7 @@ chat_berichten = []
 
 def haal_gebruikers_op():
     if not os.path.exists(DB_FILE):
-        print(f"Database bestand niet gevonden op locatie: {DB_FILE}")
+        print("Database bestand niet gevonden op locatie:", DB_FILE)
         return []
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
@@ -29,12 +29,17 @@ def haal_gebruikers_op():
     
     gebruikers = []
     for r in rows:
-        # Hier worden de kolommen nu gegarandeerd correct uitgelezen via indexnummers
+        # Dit haalt veilig de kolommen op zonder dat het tekstsysteem de code sloopt
+        naam = r[0] if len(r) > 0 else "Onbekend"
+        is_online = bool(r[1]) if len(r) > 1 else False
+        tijd = r[2] if len(r) > 2 and r[2] else "-"
+        laast_gezien = r[3] if len(r) > 3 and r[3] else "-"
+        
         gebruikers.append({
-            "naam": r[0] if len(r) > 0 and r[0] else "Onbekend",
-            "online": bool(r[1]) if len(r) > 1 else False,
-            "tijd": r[2] if len(r) > 2 and r[2] else "-",
-            "laast_gezien": r[3] if len(r) > 3 and r[3] else "-"
+            "naam": naam,
+            "online": is_online,
+            "tijd": tijd,
+            "laast_gezien": laast_gezien
         })
     return gebruikers
 
