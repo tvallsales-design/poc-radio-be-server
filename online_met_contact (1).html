@@ -108,7 +108,6 @@
             <div class="chat-header">💬 Chat - POC RADIO BE</div>
             <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
             <div class="chat-inputs">
-                <!-- ID's zijn hier nu correct toegevoegd -->
                 <input type="text" id="chat-name" class="input-name" value="on3osj">
                 <input type="text" id="chat-msg" class="input-message" placeholder="Typ hier je bericht...">
                 <button class="btn-send" onclick="verstuurBericht()">➤ Versturen</button>
@@ -151,7 +150,6 @@
             }
 
             const gefilterd = alleGebruikers.filter(u => u && u.naam && u.naam.toLowerCase().includes(zoekTerm));
-
             const onlineLijst = gefilterd.filter(u => u.online);
             const offlineLijst = gefilterd.filter(u => !u.online);
 
@@ -190,3 +188,7 @@
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
             } catch(e) {
+                console.error("Fout bij laden chat:", e);
+            }
+        }
+
