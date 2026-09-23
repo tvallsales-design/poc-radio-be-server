@@ -21,14 +21,15 @@ def haal_gebruikers_op():
     try:
         cursor.execute("SELECT naam, online, tijd, laast_gezien FROM users")
         rows = cursor.fetchall()
-    except:
+    except Exception as e:
+        print("Database fout:", e)
         rows = []
     conn.close()
     
     gebruikers = []
     for r in rows:
         gebruikers.append({
-            "naam": r[0] if len(r) > 0 else "Onbekend",
+            "naam": r[0] if len(r) > 0 and r[0] else "Onbekend",
             "online": bool(r[1]) if len(r) > 1 else False,
             "tijd": r[2] if len(r) > 2 and r[2] else "-",
             "laast_gezien": r[3] if len(r) > 3 and r[3] else "-"
@@ -73,16 +74,20 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/api/chat':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
-            data = json.loads(post_data.decode('utf-8'))
-            
-            nieuw_bericht = {
-                "naam": data.get("naam", "Anoniem"),
-                "bericht": data.get("bericht", ""),
-                "tijd": datetime.now().strftime("%H:%M")
-            }
-            chat_berichten.append(nieuw_bericht)
-            if len(chat_berichten) > 50:
-                chat_berichten.pop(0)
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+                nieuw_bericht = {
+                    "naam": data.get("naam", "Anoniem"),
+                    "bericht": data.get("bericht", ""),
+                    "tijd": datetime.now().strftime("%H:%M")
+                }
+                if nieuw_bericht["bericht"].strip():
+                    chat_berichten.append(nieuw_bericht)
+                
+                if len(chat_berichten) > 50:
+                    chat_berichten.pop(0)
+            except Exception as e:
+                print("Chat POST fout:", e)
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
