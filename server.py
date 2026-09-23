@@ -10,7 +10,7 @@ PORT = 10000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(BASE_DIR, "poc_radio.db")
 
-# Tijdelijk geheugen voor de live chatberichten
+# Tijdelijk intern geheugen voor de live chatberichten
 chat_berichten = []
 
 def haal_gebruikers_op():
@@ -29,7 +29,7 @@ def haal_gebruikers_op():
     
     gebruikers = []
     for r in rows:
-        # Hier worden de kolommen nu wél correct uitgelezen met hun indexcijfers [0, 1, 2, 3]
+        # De exacte database-kolommen worden hier nu wél goed uitgelezen!
         gebruikers.append({
             "naam": r[0] if len(r) > 0 and r[0] else "Onbekend",
             "online": bool(r[1]) if len(r) > 1 else False,
