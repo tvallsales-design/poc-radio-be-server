@@ -29,7 +29,6 @@ def haal_gebruikers_uit_db():
         cursor.execute("SELECT naam, online, laast_gezien FROM users")
         rows = cursor.fetchall()
         for rij in rows:
-            # Volkomen veilig tegen tekstfiltering: we gebruiken tekst-keys!
             gebruikers.append({
                 "naam": str(rij["naam"]) if rij["naam"] else "Onbekend",
                 "online": bool(rij["online"]),
@@ -52,13 +51,13 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        # API Route voor live gebruikers
+        # API Route voor live gebruikers - TYPEFOUT HIER HERSTELD NAAR _uit_db
         if self.path == '/api/users':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
-            self.wfile.write(json.dumps(haal_gebruikers_out_db()).encode('utf-8'))
+            self.wfile.write(json.dumps(haal_gebruikers_uit_db()).encode('utf-8'))
             return
             
         # API Route voor de chatbox
@@ -71,7 +70,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             return
         
         # Website hoofdpagina Routes
-        elif self.path in ['/', '/online.html', '/index.html'] or 'online_met_contact' in self.path:
+        elif self.path in ['/', '/online.html', '/index.html', '/online_met_contact%20(1).html']:
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
