@@ -22,20 +22,18 @@ def controleer_en_vul_database():
             )
         ''')
         
-        # De online lijst is nu helemaal leeg gemaakt!
+        # Beide lijsten zijn nu volledig leeg gemaakt!
         mijn_gebruikers = [
-            # --- ONLINE GEBRUIKERS (NU LEEG) ---
+            # --- ONLINE GEBRUIKERS (LEEG) ---
             
-            # --- OFFLINE GEBRUIKERS ---
-            ("ON1ZV - Repeater", 0, "23-09 12:15"),
-            ("ON2ACO - Mobiel", 0, "22-09 19:40")
+            # --- OFFLINE GEBRUIKERS (LEEG) ---
         ]
         
         cursor.execute("DELETE FROM users")
         if mijn_gebruikers:
             cursor.executemany("INSERT OR REPLACE INTO users (naam, online, laast_gezien) VALUES (?, ?, ?)", mijn_gebruikers)
         conn.commit()
-        print("De database is succesvol bijgewerkt met een lege online lijst!")
+        print("De database is succesvol volledig leeggemaakt!")
         
     except Exception as e:
         print("Database initialisatie fout:", e)
