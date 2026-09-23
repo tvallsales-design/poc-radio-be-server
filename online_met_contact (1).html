@@ -50,7 +50,7 @@
         .chat-panel { background-color: #010b14; border: 1px solid #003f5c; border-radius: 8px; padding: 15px; margin-bottom: 30px; }
         .chat-header { font-size: 16px; font-weight: bold; margin-bottom: 15px; }
         .chat-box { height: 120px; color: #a0a0a0; font-size: 14px; overflow-y: auto; border: 1px solid #002233; padding: 10px; background: #000; border-radius: 4px; }
-        .chat-inputs { display: flex; gap: 10px; margin-top: 15px; }
+        .chat-inputs { display: flex; gap: 10px; margin-top: 15px; width: 100%; }
         .input-name { width: 150px; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
         .input-message { flex: 1; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
         .btn-send { background-color: #00e676; color: #000000; border: none; border-radius: 4px; padding: 0 25px; font-weight: bold; cursor: pointer; font-size: 14px; }
@@ -85,7 +85,6 @@
                     <table class="status-table">
                         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
                         <tbody id="online-users">
-                            <!-- Direct hardcoded geladen om crashes te voorkomen -->
                             <tr class="user-row" data-name="on3osj - handheld" data-online="true">
                                 <td>ON3OSJ - Handheld</td>
                                 <td class="status-online">Online</td>
@@ -125,11 +124,13 @@
         <div class="chat-panel">
             <div class="chat-header">💬 Chat - POC RADIO BE</div>
             <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
-            <div class="chat-inputs">
-                <input type="text" id="chat-name" class="input-name" value="on3osj">
-                <input type="text" id="chat-msg" class="input-message" placeholder="Typ hier je bericht...">
-                <button class="btn-send" id="send-button">➤ Versturen</button>
-            </div>
+            
+            <!-- Dit formulier omzeilt de browser-beveiliging volledig -->
+            <form action="/api/chat" method="POST" class="chat-inputs">
+                <input type="text" name="naam" class="input-name" value="on3osj" required>
+                <input type="text" name="bericht" class="input-message" placeholder="Typ hier je bericht..." required autofocus>
+                <button type="submit" class="btn-send">➤ Versturen</button>
+            </form>
         </div>
 
         <!-- Footer -->
@@ -141,7 +142,6 @@
     </div>
 
     <script>
-        // Een super simpele zoekfunctie die gegarandeerd niet kan crashen
         function zoekGebruiker() {
             const zoekTerm = document.getElementById('search').value.toLowerCase();
             const rijen = document.querySelectorAll('.user-row');
@@ -155,26 +155,21 @@
             });
         }
 
-        // Directe knop-koppeling voor de chatbox zonder ingewikkelde loops
-        document.getElementById('send-button').onclick = async function() {
-            const naam = document.getElementById('chat-name').value;
-            const bericht = document.getElementById('chat-msg').value;
-            if (!bericht.trim()) return;
-
+        // Haal de bewaarde berichten direct op bij het laden van de pagina
+        async function haalChatBerichtenOp() {
             try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ naam: naam, bericht: bericht })
-                });
-                
-                if (response.ok) {
+                const res = await fetch('/api/chat');
+                if (res.ok) {
+                    const berichten = await res.json();
                     const chatBox = document.getElementById('chat-box');
-                    const tijd = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    
-                    if (chatBox.innerHTML.includes('Nog geen berichten')) {
-                        chatBox.innerHTML = '';
+                    if (berichten.length > 0) {
+                        chatBox.innerHTML = berichten.map(b => `<div><strong>[${b.tijd}] ${b.naam}:</strong> ${b.bericht}</div>`).join('');
+                        chatBox.scrollTop = chatBox.scrollHeight;
                     }
-                    
-                    chatBox.innerHTML += `<div><strong>[${tijd}] ${naam}:</strong> ${bericht}</div>`;
-                    document.getElementById('chat-msg').value = '';
+                }
+            } catch (e) {}
+        }
+        haalChatBerichtenOp();
+    </script>
+</body>
+</html>
