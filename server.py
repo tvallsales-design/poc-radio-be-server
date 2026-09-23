@@ -81,7 +81,7 @@ async def broadcast_status():
             "users": haal_gebruikers_op()
         }
         message = json.dumps(data)
-        await asyncio.gather(*[client.send(message) for client in CONNECTED_CLIENTS])
+        await asyncio.gather(*[client.send(message) for client in CONNECTED_CLIENTS], return_exceptions=True)
 
 async def broadcast_chat():
     if CONNECTED_CLIENTS:
@@ -90,11 +90,11 @@ async def broadcast_chat():
             "messages": haal_chat_op()
         }
         message = json.dumps(data)
-        await asyncio.gather(*[client.send(message) for client in CONNECTED_CLIENTS])
+        await asyncio.gather(*[client.send(message) for client in CONNECTED_CLIENTS], return_exceptions=True)
 
 async def handler(websocket, path):
-    # Controleer of de client verbinding maakt met de /ws route
-    if path != "/ws":
+    # Accepteer verbindingen op de /ws route of root als fallback
+    if path != "/ws" and path != "/":
         return
 
     CONNECTED_CLIENTS.add(websocket)
