@@ -1,47 +1,22 @@
 import http.server
 import socketserver
 import json
-import sqlite3
 import os
 from datetime import datetime
 
 PORT = 10000
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_FILE = os.path.join(BASE_DIR, "poc_radio.db")
 
-# Tijdelijk intern geheugen voor de live chatberichten
+# Tijdelijk geheugen voor live chatberichten
 chat_berichten = []
 
-def haal_gebruikers_op():
-    if not os.path.exists(DB_FILE):
-        print("Database bestand niet gevonden op locatie:", DB_FILE)
-        return []
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT naam, online, tijd, laast_gezien FROM users")
-        rows = cursor.fetchall()
-    except Exception as e:
-        print("Database SELECT fout:", e)
-        rows = []
-    conn.close()
-    
-    gebruikers = []
-    for r in rows:
-        # Dit haalt veilig de kolommen op zonder dat het tekstsysteem de code sloopt
-        naam = r[0] if len(r) > 0 else "Onbekend"
-        is_online = bool(r[1]) if len(r) > 1 else False
-        tijd = r[2] if len(r) > 2 and r[2] else "-"
-        laast_gezien = r[3] if len(r) > 3 and r[3] else "-"
-        
-        gebruikers.append({
-            "naam": naam,
-            "online": is_online,
-            "tijd": tijd,
-            "laast_gezien": laast_gezien
-        })
-    return gebruikers
+# Ingebouwde testlijst om te kijken of de verbinding met je dashboard werkt
+test_gebruikers = [
+    {"naam": "ON3OSJ - Handheld", "online": True, "tijd": "18:30", "laast_gezien": "Nu online"},
+    {"naam": "ON1ZV - Repeater", "online": False, "tijd": "12:15", "laast_gezien": "23-09 12:15"},
+    {"naam": "ON2ACO - Mobiel", "online": False, "tijd": "Yesterday", "laast_gezien": "22-09 19:40"}
+]
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -49,17 +24,19 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/api/users':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
-            self.wfile.write(json.dumps(haal_gebruikers_op()).encode('utf-8'))
+            self.wfile.write(json.dumps(test_gebruikers).encode('utf-8'))
             
         # API Route voor de chatbox
         elif self.path == '/api/chat':
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps(chat_berichten).encode('utf-8'))
         
-        # Website hoofdpagina Routes
+        # Website hoofdpagina Route
         elif self.path in ['/', '/online.html', '/index.html', '/online_met_contact%20(1).html']:
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
@@ -77,7 +54,6 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
             super().do_GET()
 
     def do_POST(self):
-        # Ontvang en bewaar nieuwe chatberichten
         if self.path == '/api/chat':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
@@ -98,6 +74,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(json.dumps({"status": "success"}).encode('utf-8'))
 
