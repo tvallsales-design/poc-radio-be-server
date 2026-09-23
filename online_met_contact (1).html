@@ -108,11 +108,12 @@
             <div class="chat-header">💬 Chat - POC RADIO BE</div>
             <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
             
-            <form action="/api/chat" method="POST" class="chat-inputs" id="chat-form">
-                <input type="text" name="naam" id="chat-name" class="input-name" value="on3osj" required>
-                <input type="text" name="bericht" id="chat-msg" class="input-message" placeholder="Typ hier je bericht..." required autofocus autocomplete="off">
-                <button type="submit" class="btn-send">➤ Versturen</button>
-            </form>
+            <!-- De action= route is hier verwijderd om te voorkomen dat je naar een witte pagina springt -->
+            <div class="chat-inputs">
+                <input type="text" id="chat-name" class="input-name" value="on3osj" required>
+                <input type="text" id="chat-msg" class="input-message" placeholder="Typ hier je bericht..." required autofocus autocomplete="off">
+                <button type="button" class="btn-send" id="send-button">➤ Versturen</button>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -128,14 +129,12 @@
 
         async function laadData() {
             try {
-                // Haal gebruikers op uit database
                 const resUsers = await fetch('/api/users');
                 if (resUsers.ok) {
                     alleGebruikers = await resUsers.json();
                     updateTabellen();
                 }
 
-                // Haal de nieuwste chatberichten op
                 const resChat = await fetch('/api/chat');
                 if (resChat.ok) {
                     const berichten = await resChat.json();
@@ -184,3 +183,6 @@
             }
 
             if(onlineTbody) onlineTbody.innerHTML = onlineHtml;
+            if(offlineTbody) offlineTbody.innerHTML = offlineHtml;
+        }
+
