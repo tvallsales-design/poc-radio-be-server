@@ -43,8 +43,8 @@ def haal_gebruikers_op():
         gebruikers.append({
             "naam": row[0],
             "online": bool(row[1]),
-            "tijd": row[2],
-            "laast_gezien": row[3]
+            "tijd": row[2] if row[2] else "-",
+            "laast_gezien": row[3] if row[3] else "-"
         })
     return gebruikers
 
