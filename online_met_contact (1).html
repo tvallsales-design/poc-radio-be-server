@@ -75,7 +75,7 @@
         </div>
 
         <div class="page-title">Wie is online?</div>
-        <input type="text" id="search" class="search-box" placeholder="ik zoek hier..." oninput="zoekGebruiker()">
+        <input type="text" id="search" class="search-box" placeholder="ik zoek hier..." oninput="updateTabellen()">
 
         <div class="users-grid">
             <!-- Online Panel -->
@@ -84,13 +84,7 @@
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
-                        <tbody id="online-users">
-                            <tr class="user-row" data-name="on3osj - handheld" data-online="true">
-                                <td>ON3OSJ - Handheld</td>
-                                <td class="status-online">Online</td>
-                                <td>Nu online</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="online-users"><tr><td colspan="3">Laden...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -101,18 +95,7 @@
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
-                        <tbody id="offline-users">
-                            <tr class="user-row" data-name="on1zv - repeater" data-online="false">
-                                <td>ON1ZV - Repeater</td>
-                                <td class="status-offline">Offline</td>
-                                <td>23-09 12:15</td>
-                            </tr>
-                            <tr class="user-row" data-name="on2aco - mobiel" data-online="false">
-                                <td>ON2ACO - Mobiel</td>
-                                <td class="status-offline">Offline</td>
-                                <td>22-09 19:40</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="offline-users"><tr><td colspan="3">Laden...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -125,10 +108,9 @@
             <div class="chat-header">💬 Chat - POC RADIO BE</div>
             <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
             
-            <!-- Dit formulier omzeilt de browser-beveiliging volledig -->
-            <form action="/api/chat" method="POST" class="chat-inputs">
-                <input type="text" name="naam" class="input-name" value="on3osj" required>
-                <input type="text" name="bericht" class="input-message" placeholder="Typ hier je bericht..." required autofocus>
+            <form action="/api/chat" method="POST" class="chat-inputs" id="chat-form">
+                <input type="text" name="naam" id="chat-name" class="input-name" value="on3osj" required>
+                <input type="text" name="bericht" id="chat-msg" class="input-message" placeholder="Typ hier je bericht..." required autofocus autocomplete="off">
                 <button type="submit" class="btn-send">➤ Versturen</button>
             </form>
         </div>
@@ -142,34 +124,63 @@
     </div>
 
     <script>
-        function zoekGebruiker() {
-            const zoekTerm = document.getElementById('search').value.toLowerCase();
-            const rijen = document.querySelectorAll('.user-row');
-            rijen.forEach(rij => {
-                const naam = rij.getAttribute('data-name');
-                if (naam.includes(zoekTerm)) {
-                    rij.style.display = '';
-                } else {
-                    rij.style.display = 'none';
-                }
-            });
-        }
+        let alleGebruikers = [];
 
-        // Haal de bewaarde berichten direct op bij het laden van de pagina
-        async function haalChatBerichtenOp() {
+        async function laadData() {
             try {
-                const res = await fetch('/api/chat');
-                if (res.ok) {
-                    const berichten = await res.json();
+                // Haal gebruikers op uit database
+                const resUsers = await fetch('/api/users');
+                if (resUsers.ok) {
+                    alleGebruikers = await resUsers.json();
+                    updateTabellen();
+                }
+
+                // Haal de nieuwste chatberichten op
+                const resChat = await fetch('/api/chat');
+                if (resChat.ok) {
+                    const berichten = await resChat.json();
                     const chatBox = document.getElementById('chat-box');
-                    if (berichten.length > 0) {
-                        chatBox.innerHTML = berichten.map(b => `<div><strong>[${b.tijd}] ${b.naam}:</strong> ${b.bericht}</div>`).join('');
-                        chatBox.scrollTop = chatBox.scrollHeight;
+                    if (chatBox) {
+                        if (berichten.length === 0) {
+                            chatBox.innerHTML = "Nog geen berichten. Start de chat!";
+                        } else {
+                            chatBox.innerHTML = berichten.map(b => `<div><strong>[${b.tijd}] ${b.naam}:</strong> ${b.bericht}</div>`).join('');
+                        }
                     }
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error("Fout bij live update:", e);
+            }
         }
-        haalChatBerichtenOp();
-    </script>
-</body>
-</html>
+
+        function updateTabellen() {
+            const zoekTerm = document.getElementById('search').value.toLowerCase();
+            const onlineTbody = document.getElementById('online-users');
+            const offlineTbody = document.getElementById('offline-users');
+            
+            let onlineHtml = '';
+            let offlineHtml = '';
+
+            if (!Array.isArray(alleGebruikers)) alleGebruikers = [];
+
+            const gefilterd = alleGebruikers.filter(u => u && u.naam && u.naam.toLowerCase().includes(zoekTerm));
+            const onlineLijst = gefilterd.filter(u => u.online);
+            const offlineLijst = gefilterd.filter(u => !u.online);
+
+            if(onlineLijst.length === 0) {
+                onlineHtml = '<tr><td colspan="3">Geen online radio\'s</td></tr>';
+            } else {
+                onlineLijst.forEach(u => {
+                    onlineHtml += `<tr><td>${u.naam}</td><td class="status-online">Online</td><td>${u.laast_gezien || '-'}</td></tr>`;
+                });
+            }
+
+            if(offlineLijst.length === 0) {
+                offlineHtml = '<tr><td colspan="3">Geen offline radio\'s</td></tr>';
+            } else {
+                offlineLijst.forEach(u => {
+                    offlineHtml += `<tr><td>${u.naam}</td><td class="status-offline">Offline</td><td>${u.laast_gezien || '-'}</td></tr>`;
+                });
+            }
+
+            if(onlineTbody) onlineTbody.innerHTML = onlineHtml;
