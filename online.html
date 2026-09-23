@@ -59,6 +59,7 @@ body{
 .zoekvak{width:100%;max-width:500px;padding:12px 16px;border:1px solid #005670;border-radius:8px;background:#030d14;color:#fff;font-size:14px;outline:none}
 .zoekvak:focus{border-color:#00cfff;box-shadow:0 0 10px rgba(0,207,255,0.2)}
 
+/* Compacte tabelboxen met interne scrollbalk */
 .tables{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
 .tablebox{background:#030d14;border:1px solid #003647;border-radius:10px;height:450px;display:flex;flex-direction:column;}
 .tabletitle{padding:12px 18px;font-size:15px;font-weight:bold;border-bottom:1px solid #002530;background:#04121c;border-top-left-radius:9px;border-top-right-radius:9px;flex-shrink:0;}
@@ -162,7 +163,7 @@ th{color:#547991;font-weight:normal;background:#030f17;position:sticky;top:0;z-i
 <div class="slogan">ALWAYS CONNECTED BY POC RADIO BE</div>
 
 <div class="p">
-  <!-- Bovenkant met logo en zoekbalk -->
+  <!-- Bovenkant met de originele radio-afbeeldingen uit uw ontwerp -->
   <div class="bovenkant">
     <div class="bovenlinks">
       <h1>POC RADIO BE</h1>
@@ -170,25 +171,12 @@ th{color:#547991;font-weight:normal;background:#030f17;position:sticky;top:0;z-i
       <h2>Wie is online?</h2>
       <input type="text" id="zoek" class="zoekvak" placeholder="ik zoek hier" onkeyup="zoekFunctie()">
     </div>
-    <div class="banner-rechts">
-      <svg width="120" height="160" viewBox="0 0 100 150" style="position:absolute; left:20px; top:20px;">
-        <rect x="15" y="20" width="50" height="100" rx="6" fill="#15191d" stroke="#333" stroke-width="2"/>
-        <rect x="22" y="30" width="36" height="40" rx="3" fill="#000" stroke="#00cfff" stroke-width="1"/>
-        <circle cx="40" cy="50" r="12" fill="none" stroke="#fff" stroke-width="1"/>
-        <rect x="25" y="80" width="30" height="30" fill="#222"/>
-        <rect x="10" y="35" width="5" height="20" fill="#ff4500"/>
-        <rect x="35" y="2" width="8" height="20" fill="#000"/>
-      </svg>
-      <div class="banner-content">
-        <div class="banner-text">
-          GLOBAL-PTT
-          <span>NETWORK & INFRASTRUCTURE</span>
-        </div>
-      </div>
+    <div class="banner-rechts" style="background-image: url('banner.jpg'); background-size: cover; background-position: center;">
+      <!-- Als de afbeelding via CSS-achtergrond laadt, blijft dit leeg. Mocht het een losse img-tag zijn, dan laadt de browser uw originele plaatje in -->
     </div>
   </div>
 
-  <!-- Gebruikers Tabellen met interne scroll functionaliteit -->
+  <!-- Gebruikers Tabellen met interne scrollbalk -->
   <div class="tables">
     <div class="tablebox">
       <div class="tabletitle" style="color:#20ef76;">🟢 Online gebruikers</div>
@@ -216,7 +204,7 @@ th{color:#547991;font-weight:normal;background:#030f17;position:sticky;top:0;z-i
             </tr>
           </thead>
           <tbody>
-            <!-- Gebruikerslijst ingeladen -->
+            <!-- Uw volledige gebruikerslijst -->
             <tr><td>432,550 + oproepkanaal club snw</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
             <tr><td>O P 0 J POC</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
             <tr><td>ON0GAL repeter</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
@@ -245,4 +233,8 @@ th{color:#547991;font-weight:normal;background:#030f17;position:sticky;top:0;z-i
             <tr><td>ON3GBH Gert M</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
             <tr><td>ON3GBH Gert p</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
             <tr><td>ON3GDV Paul P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
-
+            <tr><td>ON3GHZ Gillis P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3NLY Nadine P</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI B-houtenbrak</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI houtebrak</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
+            <tr><td>ON3OSI Patrick Basse</td><td style="color:#ff6574;">Offline</td><td>-</td></tr>
