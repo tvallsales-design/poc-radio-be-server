@@ -46,14 +46,7 @@
         .status-online { color: #00e676; font-weight: bold; }
         .status-offline { color: #ff3d00; font-weight: bold; }
         
-        .info-note { font-size: 11px; color: #666; text-align: center; margin-bottom: 20px; }
-        .chat-panel { background-color: #010b14; border: 1px solid #003f5c; border-radius: 8px; padding: 15px; margin-bottom: 30px; }
-        .chat-header { font-size: 16px; font-weight: bold; margin-bottom: 15px; }
-        .chat-box { height: 120px; color: #a0a0a0; font-size: 14px; overflow-y: auto; border: 1px solid #002233; padding: 10px; background: #000; border-radius: 4px; }
-        .chat-inputs { display: flex; gap: 10px; margin-top: 15px; width: 100%; }
-        .input-name { width: 150px; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
-        .input-message { flex: 1; background-color: #000000; border: 1px solid #005580; border-radius: 4px; padding: 10px; color: #ffffff; }
-        .btn-send { background-color: #00e676; color: #000000; border: none; border-radius: 4px; padding: 0 25px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        .info-note { font-size: 11px; color: #666; text-align: center; margin-bottom: 30px; }
         
         .footer-section { border-top: 1px solid #002233; padding-top: 20px; display: flex; justify-content: space-between; font-size: 12px; color: #a0a0a0; }
         .footer-center { text-align: center; }
@@ -66,6 +59,7 @@
     <div class="top-banner">Always Connected by POC Radio BE</div>
 
     <div class="container">
+        <!-- Header -->
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
@@ -74,9 +68,11 @@
             <div style="color:#00bcff; font-weight:bold; font-size:18px;">GLOBAL-PTT<br><span style="font-size:10px; color:#aaa;">NETWORK & INFRASTRUCTURE</span></div>
         </div>
 
+        <!-- Titel & Zoeken -->
         <div class="page-title">Wie is online?</div>
         <input type="text" id="search" class="search-box" placeholder="ik zoek hier..." oninput="updateTabellen()">
 
+        <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
             <!-- Online Panel -->
             <div class="panel">
@@ -103,19 +99,6 @@
 
         <div class="info-note">IMEI, batterij en GPS worden niet openbaar getoond</div>
 
-        <!-- Chatbox -->
-        <div class="chat-panel">
-            <div class="chat-header">💬 Chat - POC RADIO BE</div>
-            <div id="chat-box" class="chat-box">Nog geen berichten. Start de chat!</div>
-            
-            <!-- De action= route is hier verwijderd om te voorkomen dat je naar een witte pagina springt -->
-            <div class="chat-inputs">
-                <input type="text" id="chat-name" class="input-name" value="on3osj" required>
-                <input type="text" id="chat-msg" class="input-message" placeholder="Typ hier je bericht..." required autofocus autocomplete="off">
-                <button type="button" class="btn-send" id="send-button">➤ Versturen</button>
-            </div>
-        </div>
-
         <!-- Footer -->
         <div class="footer-section">
             <div><strong>POC RADIO BE</strong><br><span style="font-size:10px; color:#555;">VERKOOP - VERHUUR - SERVICE - SUPPORT</span></div>
@@ -129,26 +112,13 @@
 
         async function laadData() {
             try {
-                const resUsers = await fetch('/api/users');
-                if (resUsers.ok) {
-                    alleGebruikers = await resUsers.json();
+                const response = await fetch('/api/users');
+                if (response.ok) {
+                    alleGebruikers = await response.json();
                     updateTabellen();
                 }
-
-                const resChat = await fetch('/api/chat');
-                if (resChat.ok) {
-                    const berichten = await resChat.json();
-                    const chatBox = document.getElementById('chat-box');
-                    if (chatBox) {
-                        if (berichten.length === 0) {
-                            chatBox.innerHTML = "Nog geen berichten. Start de chat!";
-                        } else {
-                            chatBox.innerHTML = berichten.map(b => `<div><strong>[${b.tijd}] ${b.naam}:</strong> ${b.bericht}</div>`).join('');
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Fout bij live update:", e);
+            } catch (error) {
+                console.error("Fout bij live updaten gebruikers:", error);
             }
         }
 
@@ -186,3 +156,9 @@
             if(offlineTbody) offlineTbody.innerHTML = offlineHtml;
         }
 
+        // Haal direct de data op en ververs elke 5 seconden rustig op de achtergrond
+        laadData();
+        setInterval(laadData, 5000);
+    </script>
+</body>
+</html>
