@@ -11,10 +11,12 @@
             margin: 0; 
             padding: 0; 
             width: 100%;
+            height: 100vh; /* Dwingt de pagina om precies zo hoog te zijn als het scherm */
             background-color: #0b0f19; 
             color: #f3f4f6; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* Voorkomt een dubbele scrollbalk op de hoofdpagina */
         }
 
         .top-banner {
@@ -28,10 +30,15 @@
             text-transform: uppercase;
         }
 
+        /* Flexbox lay-out om de container perfect te verdelen */
         .container { 
             max-width: 1200px; 
             margin: 0 auto; 
-            padding: 40px 20px; 
+            padding: 20px; 
+            height: calc(100vh - 35px); /* Hoogte minus de top-banner */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         /* Header Layout */
@@ -40,21 +47,21 @@
             justify-content: space-between; 
             align-items: center;
             border-bottom: 1px solid #1e293b; 
-            padding-bottom: 25px; 
-            margin-bottom: 35px;
+            padding-bottom: 15px; 
+            margin-bottom: 20px;
             gap: 20px;
         }
 
         .logo-area h1 { 
             color: #ffffff; 
-            font-size: 28px; 
+            font-size: 26px; 
             margin: 0; 
             font-weight: 700; 
             letter-spacing: -0.5px; 
         }
 
         .nav-links { 
-            margin-top: 10px; 
+            margin-top: 5px; 
             font-size: 13px; 
             color: #94a3b8; 
             font-weight: 500;
@@ -103,17 +110,19 @@
 
         /* Titel */
         .page-title { 
-            font-size: 32px; 
+            font-size: 28px; 
             font-weight: 700; 
-            margin: 0 0 25px 0; 
+            margin: 0 0 15px 0; 
             color: #ffffff;
         }
 
-        /* Grid Layout */
+        /* Grid Layout die flexibel meeschaalt met het scherm */
         .users-grid { 
             display: flex; 
             gap: 24px; 
-            margin-bottom: 35px; 
+            flex: 1; /* Neemt alle beschikbare ruimte in beslag */
+            min-height: 0; /* Cruciaal voor flexbox scrollen */
+            margin-bottom: 15px; 
         }
 
         .panel {
@@ -121,16 +130,16 @@
             background-color: #141b2d; 
             border: 1px solid #1e293b;
             border-radius: 12px; 
-            padding: 24px; 
-            height: auto; /* Aangepast naar auto: schaalt nu flexibel mee met de inhoud */
+            padding: 20px; 
             display: flex; 
             flex-direction: column;
+            min-height: 0; /* Zorgt dat het panel intern kan scrollen */
         }
 
         .panel-header { 
             font-size: 18px; 
             font-weight: 600; 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
             display: flex; 
             align-items: center; 
             color: #ffffff;
@@ -147,9 +156,16 @@
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
         
+        /* Interne scrollbalk voor als de lijst langer wordt */
         .table-wrapper { 
             flex: 1; 
+            overflow-y: auto; 
+            padding-right: 5px;
         }
+
+        .table-wrapper::-webkit-scrollbar { width: 6px; }
+        .table-wrapper::-webkit-scrollbar-track { background: transparent; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
 
         .status-table { 
             width: 100%; 
@@ -166,6 +182,10 @@
             color: #94a3b8; 
             text-transform: uppercase;
             font-size: 11px;
+            position: sticky;
+            top: 0;
+            background-color: #141b2d;
+            z-index: 1;
         }
 
         .status-table td { 
@@ -174,29 +194,29 @@
         }
 
         /* Kolomverdeling */
-        .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 40%; }
-        .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 30%; }
+        .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 45%; }
+        .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 25%; }
         .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 30%; }
 
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
         
         .info-note { 
-            font-size: 12px; 
+            font-size: 11px; 
             color: #475569; 
             text-align: center; 
-            margin-bottom: 40px; 
+            margin-bottom: 15px; 
         }
         
-        /* Footer Layout over 3 kolommen */
+        /* Footer Layout strak onderaan gedrukt */
         .footer-section { 
             border-top: 1px solid #1e293b; 
-            padding-top: 30px; 
+            padding-top: 15px; 
             display: flex; 
             justify-content: space-between; 
-            font-size: 13px; 
+            font-size: 12px; 
             color: #94a3b8; 
-            line-height: 1.6;
+            line-height: 1.5;
             gap: 20px;
         }
 
@@ -211,10 +231,10 @@
         }
 
         .footer-left-sub {
-            font-size: 10px; 
+            font-size: 9px; 
             color: #475569; 
             font-weight: 600; 
-            margin-top: 4px;
+            margin-top: 2px;
             display: inline-block;
         }
 
@@ -223,7 +243,7 @@
             text-decoration: none;
             font-size: 12px;
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 4px;
             font-weight: 600;
         }
         .footer-website-link:hover {
@@ -237,10 +257,12 @@
         .global-ptt-logo { color: #00bcff; font-weight: 700; }
 
         @media (max-width: 768px) {
+            body, html { height: auto; overflow: auto; }
+            .container { height: auto; }
             .header-section { flex-direction: column; align-items: flex-start; }
             .brand-right-container { width: 100%; justify-content: space-between; }
             .users-grid { flex-direction: column; }
-            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-section { flex-direction: column; gap: 20px; text-align: center; }
             .footer-col.right { text-align: center; }
         }
     </style>
@@ -285,22 +307,3 @@
                             <tr><td><strong>ON2ACO</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                             <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                             <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Offline Kolom -->
-            <div class="panel">
-                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead>
-                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON2PJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3BHL</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3DGB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
