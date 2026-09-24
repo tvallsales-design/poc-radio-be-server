@@ -11,12 +11,12 @@
             margin: 0; 
             padding: 0; 
             width: 100%;
-            height: 100vh; /* Dwingt de pagina om precies zo hoog te zijn als het scherm */
+            height: 100vh; /* Zorgt dat de pagina precies in het scherm past */
             background-color: #0b0f19; 
             color: #f3f4f6; 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; /* Voorkomt een dubbele scrollbalk op de hoofdpagina */
+            overflow: hidden; /* Voorkomt scrollen op de hoofdpagina */
         }
 
         .top-banner {
@@ -30,12 +30,11 @@
             text-transform: uppercase;
         }
 
-        /* Flexbox lay-out om de container perfect te verdelen */
         .container { 
             max-width: 1200px; 
             margin: 0 auto; 
             padding: 20px; 
-            height: calc(100vh - 35px); /* Hoogte minus de top-banner */
+            height: calc(100vh - 35px); /* Volledige hoogte minus de top-banner */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -116,12 +115,12 @@
             color: #ffffff;
         }
 
-        /* Grid Layout die flexibel meeschaalt met het scherm */
+        /* Grid Layout voor beide kolommen strak naast elkaar */
         .users-grid { 
             display: flex; 
             gap: 24px; 
-            flex: 1; /* Neemt alle beschikbare ruimte in beslag */
-            min-height: 0; /* Cruciaal voor flexbox scrollen */
+            flex: 1; 
+            min-height: 0; 
             margin-bottom: 15px; 
         }
 
@@ -133,7 +132,7 @@
             padding: 20px; 
             display: flex; 
             flex-direction: column;
-            min-height: 0; /* Zorgt dat het panel intern kan scrollen */
+            min-height: 0; 
         }
 
         .panel-header { 
@@ -156,7 +155,7 @@
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
         
-        /* Interne scrollbalk voor als de lijst langer wordt */
+        /* Interne scrollbalk binnen de panels */
         .table-wrapper { 
             flex: 1; 
             overflow-y: auto; 
@@ -193,7 +192,6 @@
             border-bottom: 1px solid #1e293b; 
         }
 
-        /* Kolomverdeling */
         .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 45%; }
         .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 25%; }
         .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 30%; }
@@ -208,7 +206,7 @@
             margin-bottom: 15px; 
         }
         
-        /* Footer Layout strak onderaan gedrukt */
+        /* Footer Layout over 3 egale kolommen */
         .footer-section { 
             border-top: 1px solid #1e293b; 
             padding-top: 15px; 
@@ -307,3 +305,10 @@
                             <tr><td><strong>ON2ACO</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                             <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                             <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Offline Kolom -->
+            <div class="panel">
