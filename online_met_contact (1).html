@@ -39,7 +39,7 @@
             padding: 40px 20px; 
         }
 
-        /* Header Modernisering */
+        /* Header Modernisering met afbeelding rechtsboven */
         .header-section {
             display: flex; 
             justify-content: space-between; 
@@ -47,6 +47,7 @@
             border-bottom: 1px solid #1e293b; 
             padding-bottom: 25px; 
             margin-bottom: 35px;
+            gap: 20px;
         }
 
         .logo-area h1 { 
@@ -76,6 +77,13 @@
             color: #00bcff;
         }
 
+        /* Container om tekst en de foto rechts te groeperen */
+        .brand-right-container {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Ruimte tussen de tekst en de foto */
+        }
+
         .brand-right {
             text-align: right;
         }
@@ -92,6 +100,25 @@
             color: #64748b; 
             font-weight: 600; 
             letter-spacing: 1px;
+        }
+
+        /* Styling voor de nieuwe afbeelding rechtsboven */
+        .header-image {
+            height: 65px; /* Ideale hoogte voor een strakke uitlijning */
+            width: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            object-fit: contain;
+        }
+
+        /* Responsive lay-out voor mobiele schermen */
+        @media (max-width: 768px) {
+            .header-section { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .brand-right-container { width: 100%; justify-content: space-between; }
+            .brand-right { text-align: left; }
+            .users-grid { flex-direction: column; }
+            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-center { text-align: center !important; }
         }
 
         /* Titel & Zoekbalk */
@@ -128,12 +155,6 @@
             display: flex; 
             gap: 24px; 
             margin-bottom: 25px; 
-        }
-
-        @media (max-width: 768px) {
-            .users-grid { flex-direction: column; }
-            .header-section { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .brand-right { text-align: left; }
         }
 
         .panel {
@@ -182,7 +203,6 @@
             padding-right: 4px;
         }
 
-        /* Scrollbar styling voor een strakke look */
         .table-wrapper::-webkit-scrollbar { width: 6px; }
         .table-wrapper::-webkit-scrollbar-track { background: transparent; }
         .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
@@ -217,7 +237,6 @@
             border-bottom: none;
         }
 
-        /* 'Geen gebruikers' melding subtieler maken */
         .no-users-row {
             color: #64748b;
             font-style: italic;
@@ -236,7 +255,7 @@
             font-weight: 500;
         }
         
-        /* Footer Modernisering */
+        /* Footer */
         .footer-section { 
             border-top: 1px solid #1e293b; 
             padding-top: 30px; 
@@ -245,11 +264,6 @@
             font-size: 13px; 
             color: #94a3b8; 
             line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
-            .footer-center { text-align: center !important; }
         }
 
         .footer-left-sub {
@@ -285,15 +299,19 @@
     <div class="top-banner">Always Connected by POC Radio BE</div>
 
     <div class="container">
-        <!-- Header -->
+        <!-- Header met Foto Rechtsboven -->
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
                 <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span></div>
             </div>
-            <div class="brand-right">
-                <div class="main-title">GLOBAL-PTT</div>
-                <div class="sub-title">NETWORK & INFRASTRUCTURE</div>
+            <div class="brand-right-container">
+                <div class="brand-right">
+                    <div class="main-title">GLOBAL-PTT</div>
+                    <div class="sub-title">NETWORK & INFRASTRUCTURE</div>
+                </div>
+                <!-- Belangrijk: Sla de foto op onder de naam 'global-ptt-radios.png' in dezelfde map -->
+                <img src="global-ptt-radios.png" alt="GLOBAL-PTT Radios" class="header-image">
             </div>
         </div>
 
@@ -309,22 +327,3 @@
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
-                        <tbody id="online-users"><tr><td colspan="3" class="no-users-row">Data aan het laden...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Offline Panel -->
-            <div class="panel">
-                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
-                        <tbody id="offline-users"><tr><td colspan="3" class="no-users-row">Data aan het laden...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-note">🔒 IMEI, batterij en GPS worden niet openbaar getoond</div>
-
