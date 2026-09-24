@@ -135,6 +135,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
+            height: 600px; /* Vaste hoogte voor symmetrie door de lange lijst */
             display: flex; 
             flex-direction: column;
         }
@@ -161,7 +162,14 @@
         
         .table-wrapper { 
             flex: 1; 
+            overflow-y: auto; /* Zorgt voor een interne scrollbalk */
+            padding-right: 5px;
         }
+
+        /* Scrollbar netjes stylen */
+        .table-wrapper::-webkit-scrollbar { width: 6px; }
+        .table-wrapper::-webkit-scrollbar-track { background: transparent; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
 
         .status-table { 
             width: 100%; 
@@ -178,10 +186,14 @@
             color: #94a3b8; 
             text-transform: uppercase;
             font-size: 11px;
+            position: sticky;
+            top: 0;
+            background-color: #141b2d;
+            z-index: 1;
         }
 
         .status-table td { 
-            padding: 14px 0; 
+            padding: 12px 0; 
             border-bottom: 1px solid #1e293b; 
         }
 
@@ -297,11 +309,3 @@
 
             <!-- Offline Kolom -->
             <div class="panel">
-                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead>
-                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
-                        </thead>
-                        <tbody id="offline-users">
-                            <tr class="user-row-offline"><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>Gisteren</td></tr>
