@@ -126,7 +126,7 @@
         .users-grid { 
             display: flex; 
             gap: 24px; 
-            margin-bottom: 25px; 
+            margin-bottom: 35px; 
         }
 
         .panel {
@@ -135,7 +135,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 450px; 
+            min-height: 200px; /* Hoogte past zich nu automatisch flexibel aan */
             display: flex; 
             flex-direction: column;
         }
@@ -162,7 +162,6 @@
         
         .table-wrapper { 
             flex: 1; 
-            overflow-y: auto; 
         }
 
         .status-table { 
@@ -178,9 +177,6 @@
             font-weight: 600; 
             border-bottom: 2px solid #1e293b; 
             color: #94a3b8; 
-            position: sticky; 
-            top: 0; 
-            background-color: #141b2d; 
             text-transform: uppercase;
             font-size: 11px;
         }
@@ -194,7 +190,7 @@
             color: #64748b;
             font-style: italic;
             text-align: center;
-            padding: 30px 0 !important;
+            padding: 40px 0 !important;
         }
 
         .status-online { color: #10b981; font-weight: 600; }
@@ -232,6 +228,7 @@
             font-size: 12px;
             display: inline-block;
             margin-top: 8px;
+            font-weight: 600;
         }
         .footer-website-link:hover {
             color: #00bcff;
@@ -240,6 +237,7 @@
 
         .footer-center { text-align: center; }
         .footer-center a { color: #00bcff; text-decoration: none; font-weight: 600; }
+        .footer-center a:hover { text-decoration: underline; }
 
         .global-ptt-logo { color: #00bcff; font-weight: 700; }
 
@@ -277,7 +275,7 @@
 
         <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
-            <!-- Online Kolom met vaste HTML-rijen -->
+            <!-- Online Kolom -->
             <div class="panel">
                 <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
                 <div class="table-wrapper">
