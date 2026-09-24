@@ -4,6 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wie is online? - POC RADIO BE</title>
+            /* LIVE KLOK ONDERAAN VIA STYLING */
+        body::after {
+            content: "KLOK LADEN...";
+            id: display-klok;
+            display: block;
+            text-align: center;
+            margin: 40px auto 20px auto;
+            padding: 15px;
+            max-width: 300px;
+            background-color: #141b2d;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00bcff;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
     <style>
         * { box-sizing: border-box; }
         
