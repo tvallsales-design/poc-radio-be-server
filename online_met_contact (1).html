@@ -4,26 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wie is online? - POC RADIO BE</title>
-            /* LIVE KLOK ONDERAAN VIA STYLING */
-        body::after {
-            content: "KLOK LADEN...";
-            id: display-klok;
-            display: block;
-            text-align: center;
-            margin: 40px auto 20px auto;
-            padding: 15px;
-            max-width: 300px;
-            background-color: #141b2d;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 20px;
-            font-weight: bold;
-            color: #00bcff;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
     <style>
         * { box-sizing: border-box; }
         
@@ -285,7 +265,7 @@
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
-                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span> tel 0496344212</div>
+                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span>tel 0496344212</div>
             </div>
             <div class="brand-right-container">
                 <div class="brand-right">
@@ -297,48 +277,89 @@
         </div>
 
         <!-- Titel -->
-        <div class="page-title">Wie is online? in opbouw dit is test software werkt al vervest om het uur das nog wat geduld hebben aub </div>
+        <div class="page-title">Wie is online?        in opbouw dit is test software
+         werkt al vervest om het uur das nog wat geduld hebben aub </div>
 
-        <!-- Gebruikers Grid -->
+        <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
-            
-            <!-- Online Panel -->
+            <!-- Online Kolom -->
             <div class="panel">
-                <div class="panel-header">
-                    <span class="dot online"></span>Online gebruikers
-                </div>
+                <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Status</th>
-                                <th>Laatst Online</th>
-                            </tr>
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody>
-                            <!-- Je software vult dit automatisch aan -->
-                            <tr><td>0432.550+ OPROEPKANAAL</td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td>ON0PAJ REEATER</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                             <tr><td><strong>O432.550+ OPROEPKANAAL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                        
+                            <tr><td><strong>ON0PAJ REEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON0WL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON0GAL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3OSI</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3GHD</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                             <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            
+                            <tr><td><strong>ON3RK</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON2ACO</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3GHB</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Offline Panel -->
+            <!-- Offline Kolom -->
             <div class="panel">
-                <div class="panel-header">
-                    <span class="dot offline"></span>Offline gebruikers
-                </div>
+                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Status</th>
-                                <th>Laatst Online</th>
-                            </tr>
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody>
-                            <!-- Je software vult dit automatisch aan -->
-                        </tbody>
+                            
+                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8PMO</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7AL</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3NLY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6ER</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON2PJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3DGB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3GHZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PHB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7MA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3RK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3SD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3TTR</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4AIM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4CHJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4LK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4WZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5AVM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5GF</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5LNS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5LUC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6GPS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6VE</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7ARW</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7DAN</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7KY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7RVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7UC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7UDM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7XD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+    
+
+
+       
+                            
