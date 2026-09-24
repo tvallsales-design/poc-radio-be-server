@@ -255,7 +255,7 @@
             font-weight: 500;
         }
         
-        /* Footer */
+        /* Footer styling */
         .footer-section { 
             border-top: 1px solid #1e293b; 
             padding-top: 30px; 
@@ -273,6 +273,20 @@
             letter-spacing: 0.5px; 
             margin-top: 4px;
             display: inline-block;
+        }
+
+        /* Nieuwe link style voor jouw website link */
+        .footer-website-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+            transition: color 0.2s ease;
+        }
+        .footer-website-link:hover {
+            color: #00bcff;
+            text-decoration: underline;
         }
 
         .footer-center { text-align: center; }
@@ -310,7 +324,6 @@
                     <div class="main-title">GLOBAL-PTT</div>
                     <div class="sub-title">NETWORK & INFRASTRUCTURE</div>
                 </div>
-                <!-- Foto laadt nu direct via een vaste internetlink! -->
                 <img src="https://ibb.co" alt="GLOBAL-PTT Radio" class="header-image">
             </div>
         </div>
@@ -322,8 +335,3 @@
         <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
             <!-- Online Panel -->
-            <div class="panel">
-                <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead><tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr></thead>
