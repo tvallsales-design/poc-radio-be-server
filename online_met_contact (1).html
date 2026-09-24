@@ -358,6 +358,22 @@
                             <tr><td><strong>ON7UDM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
                             <tr><td><strong>ON7XD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
                             <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+    <!-- Chatbox Elementen -->
+    <div class="chat-launcher" id="chatLauncher" onclick="toggleChatbox()">💬</div>
+
+    <div class="chat-wrapper" id="chatWrapper">
+        <div class="chat-header-bar">
+            <span>POC Radio Support</span>
+            <span class="chat-close-btn" onclick="toggleChatbox()">×</span>
+        </div>
+        <div class="chat-logs" id="chatLogs">
+            <div class="chat-msg operator">Hallo! Welkom bij POC RADIO BE. Heb je een vraag over onze software, verkoop of verhuur? Stel ze gerust hier!</div>
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="chatInputField" placeholder="Typ je bericht..." onkeypress="handleChatKey(event)">
+            <button onclick="dispatchChatMessage()">Verstuur</button>
+        </div>
+    </div>
 
 
        
