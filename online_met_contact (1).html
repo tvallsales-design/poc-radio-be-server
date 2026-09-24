@@ -273,11 +273,11 @@
 
         <!-- Titel & Zoeken -->
         <div class="page-title">Wie is online?</div>
-        <input type="text" id="search" class="search-box" placeholder="Typ hier om te zoeken naar radio's..." oninput="updateTabellen()">
+        <input type="text" id="search" class="search-box" placeholder="Typ hier om te zoeken naar radio's..." oninput="zoekRadio()">
 
         <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
-            <!-- Online Kolom -->
+            <!-- Online Kolom met vaste HTML-rijen -->
             <div class="panel">
                 <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
                 <div class="table-wrapper">
@@ -286,7 +286,13 @@
                             <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody id="online-users">
-                            <!-- Javascript vult dit in -->
+                            <tr class="user-row"><td><strong>ON3OSI</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>ON4ARV</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>ON3PBA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>ON0PAJ</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>ON0WL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>206 OPROEPKANAAL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr class="user-row"><td><strong>ON0GAL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -301,26 +307,4 @@
                             <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody id="offline-users">
-                            <!-- Javascript vult dit in -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-note">🔒 IMEI, batterij en GPS worden niet openbaar getoond</div>
-
-        <!-- Footer -->
-        <div class="footer-section">
-            <div>
-                <strong>POC RADIO BE</strong><br>
-                <span class="footer-left-sub">VERKOOP - VERHUUR - SERVICE - SUPPORT</span><br>
-                <a href="https://on3osi.be" target="_blank" class="footer-website-link">🌐 Bezoek on3osi.be</a>
-            </div>
-            <div class="footer-center">
-                📬 <strong>Contact - POC RADIO BE</strong><br>
-                <a href="mailto:pocradiobe@hotmail.com">pocradiobe@hotmail.com</a><br>
-                <span style="font-size:11px; color:#475569;">Vragen, info of ondersteuning? Neem gerust contact op!</span>
-            </div>
-            <div class="footer-right">
-                Dank aan<br>
+                            <tr id="no-offline-message"><td colspan="3" class="no-users-row">Geen offline radio's gevonden</td></tr>
