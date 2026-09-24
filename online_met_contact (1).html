@@ -122,7 +122,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 460px; 
+            height: 460px; /* Vaste hoogte houdt de layout strak en symmetrisch */
             display: flex; 
             flex-direction: column;
         }
@@ -147,13 +147,14 @@
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
         
+        /* Netjes scrollen binnen de panels */
         .table-wrapper { 
             flex: 1; 
             overflow-y: auto; 
             padding-right: 5px;
         }
 
-        .table-wrapper::-webkit-webkit-scrollbar { width: 6px; }
+        .table-wrapper::-webkit-scrollbar { width: 6px; }
         .table-wrapper::-webkit-scrollbar-track { background: transparent; }
         .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
 
@@ -183,44 +184,75 @@
             border-bottom: 1px solid #1e293b; 
         }
 
+        /* Vaste kolombreedtes tegen verspringen */
         .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 45%; }
         .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 25%; }
         .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 30%; }
 
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
+        
+        .info-note { 
+            font-size: 12px; 
+            color: #475569; 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        
+        /* Footer Layout stabiel over 3 kolommen */
+        .footer-section { 
+            border-top: 1px solid #1e293b; 
+            padding-top: 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 13px; 
+            color: #94a3b8; 
+            line-height: 1.6;
+            gap: 20px;
+        }
+
+        .footer-col {
+            flex: 1;
+        }
+        .footer-col.center {
+            text-align: center;
+        }
+        .footer-col.right {
+            text-align: right;
+        }
+
+        .footer-left-sub {
+            font-size: 10px; 
+            color: #475569; 
+            font-weight: 600; 
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .footer-website-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        .footer-website-link:hover {
+            color: #00bcff;
+            text-decoration: underline;
+        }
+
+        .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
+        .footer-col a:hover { text-decoration: underline; }
+
+        .global-ptt-logo { color: #00bcff; font-weight: 700; }
 
         @media (max-width: 768px) {
             .header-section { flex-direction: column; align-items: flex-start; }
             .brand-right-container { width: 100%; justify-content: space-between; }
             .users-grid { flex-direction: column; }
-        }
-
-        /* ==========================================
-           GROENE WHATSAPP CHAT KNOP STYLING
-           ========================================== */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            background-color: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 99999;
-            transition: transform 0.2s ease;
-        }
-        .whatsapp-button:hover {
-            transform: scale(1.1);
-        }
-        .whatsapp-button svg {
-            width: 35px;
-            height: 35px;
-            fill: white;
+            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-col.right { text-align: center; }
         }
     </style>
 </head>
@@ -233,7 +265,7 @@
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
-                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span> tel 0496344212</div>
+                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span>tel 0496344212</div>
             </div>
             <div class="brand-right-container">
                 <div class="brand-right">
@@ -245,58 +277,89 @@
         </div>
 
         <!-- Titel -->
-        <div class="page-title">Wie is online? in opbouw dit is test software werkt al vervest om het uur das nog wat geduld hebben aub</div>
+        <div class="page-title">Wie is online?        in opbouw dit is test software
+         werkt al vervest om het uur das nog wat geduld hebben aub </div>
 
-        <!-- Gebruikers Grid -->
+        <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
-            
-            <!-- Online Tabel -->
+            <!-- Online Kolom -->
             <div class="panel">
-                <div class="panel-header">
-                    <span class="dot online"></span>Online gebruikers
-                </div>
+                <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Status</th>
-                                <th>Laatst Online</th>
-                            </tr>
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody>
-                            <!-- Je software vult dit automatisch aan -->
-                            <tr><td>0432.550+ OPROEPKANAAL</td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td>ON0PAJ REEATER</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                             <tr><td><strong>O432.550+ OPROEPKANAAL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                        
+                            <tr><td><strong>ON0PAJ REEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON0WL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON0GAL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3OSI</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3GHD</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                             <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            
+                            <tr><td><strong>ON3RK</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON2ACO</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3GHB</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Offline Tabel -->
+            <!-- Offline Kolom -->
             <div class="panel">
-                <div class="panel-header">
-                    <span class="dot offline"></span>Offline gebruikers
-                </div>
+                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Status</th>
-                                <th>Laatst Online</th>
-                            </tr>
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
                         <tbody>
-                            <!-- Je software vult dit automatisch aan -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                            
+                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8PMO</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7AL</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3NLY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6ER</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON2PJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3DGB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3GHZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PHB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7MA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3PVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3RK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3SD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3TTR</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4AIM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4CHJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4LK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON4WZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5AVM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5GF</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5LNS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON5LUC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6GPS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON6VE</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7ARW</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7DAN</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7KY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7RVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7UC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7UDM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON7XD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+    
 
-        </div> <!-- Einde users-grid -->
-    </div> <!-- Einde container -->
 
-    <!-- De Zwevende WhatsApp Knop -->
-    <a href="https://wa.me..." class="whatsapp-button" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24">
+       
+                            
