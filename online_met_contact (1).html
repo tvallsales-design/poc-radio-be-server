@@ -39,7 +39,7 @@
             padding: 40px 20px; 
         }
 
-        /* Header Modernisering met rechtopstaande afbeelding rechtsboven */
+        /* Header Modernisering */
         .header-section {
             display: flex; 
             justify-content: space-between; 
@@ -77,11 +77,11 @@
             color: #00bcff;
         }
 
-        /* Container om tekst en de foto rechts te groeperen */
+        /* Container om tekst en het logo-icoon rechts te groeperen */
         .brand-right-container {
             display: flex;
             align-items: center;
-            gap: 20px; /* Ruimte tussen de tekst en de foto */
+            gap: 15px; 
         }
 
         .brand-right {
@@ -93,6 +93,7 @@
             font-weight: 700; 
             font-size: 20px; 
             letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .brand-right .sub-title {
@@ -102,13 +103,17 @@
             letter-spacing: 1px;
         }
 
-        /* Geoptimaliseerde styling voor de nieuwe rechtopstaande foto */
-        .header-image {
-            height: 80px; 
-            width: auto;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            object-fit: contain;
+        /* Modern CSS-icoon in plaats van een externe afbeelding om fouten te voorkomen */
+        .header-logo-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #005580, #00bcff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0, 188, 255, 0.3);
         }
 
         /* Responsive lay-out voor mobiele schermen */
@@ -275,7 +280,6 @@
             display: inline-block;
         }
 
-        /* Nieuwe link style voor jouw website link */
         .footer-website-link {
             color: #ffffff;
             text-decoration: none;
@@ -313,7 +317,7 @@
     <div class="top-banner">Always Connected by POC Radio BE</div>
 
     <div class="container">
-        <!-- Header met Direct Werkende Foto via Link -->
+        <!-- Header zonder externe afhankelijkheden -->
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
@@ -324,7 +328,8 @@
                     <div class="main-title">GLOBAL-PTT</div>
                     <div class="sub-title">NETWORK & INFRASTRUCTURE</div>
                 </div>
-                <img src="https://ibb.co" alt="GLOBAL-PTT Radio" class="header-image">
+                <!-- CSS-icoon (werkt altijd) -->
+                <div class="header-logo-icon">🌐</div>
             </div>
         </div>
 
@@ -333,5 +338,3 @@
         <input type="text" id="search" class="search-box" placeholder="Typ hier om te zoeken naar radio's..." oninput="updateTabellen()">
 
         <!-- Gebruikers Status Overzicht -->
-        <div class="users-grid">
-            <!-- Online Panel -->
