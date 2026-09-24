@@ -122,7 +122,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 460px; /* Vaste hoogte houdt de layout strak en symmetrisch */
+            height: 460px; 
             display: flex; 
             flex-direction: column;
         }
@@ -147,14 +147,13 @@
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
         
-        /* Netjes scrollen binnen de panels */
         .table-wrapper { 
             flex: 1; 
             overflow-y: auto; 
             padding-right: 5px;
         }
 
-        .table-wrapper::-webkit-scrollbar { width: 6px; }
+        .table-wrapper::-webkit-webkit-scrollbar { width: 6px; }
         .table-wrapper::-webkit-scrollbar-track { background: transparent; }
         .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
 
@@ -184,81 +183,23 @@
             border-bottom: 1px solid #1e293b; 
         }
 
-        /* Vaste kolombreedtes tegen verspringen */
         .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 45%; }
         .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 25%; }
         .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 30%; }
 
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
-        
-        .info-note { 
-            font-size: 12px; 
-            color: #475569; 
-            text-align: center; 
-            margin-bottom: 40px; 
-        }
-        
-        /* Footer Layout stabiel over 3 kolommen */
-        .footer-section { 
-            border-top: 1px solid #1e293b; 
-            padding-top: 30px; 
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 13px; 
-            color: #94a3b8; 
-            line-height: 1.6;
-            gap: 20px;
-        }
-
-        .footer-col {
-            flex: 1;
-        }
-        .footer-col.center {
-            text-align: center;
-        }
-        .footer-col.right {
-            text-align: right;
-        }
-
-        .footer-left-sub {
-            font-size: 10px; 
-            color: #475569; 
-            font-weight: 600; 
-            margin-top: 4px;
-            display: inline-block;
-        }
-
-        .footer-website-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 12px;
-            display: inline-block;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-        .footer-website-link:hover {
-            color: #00bcff;
-            text-decoration: underline;
-        }
-
-        .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
-        .footer-col a:hover { text-decoration: underline; }
-
-        .global-ptt-logo { color: #00bcff; font-weight: 700; }
 
         @media (max-width: 768px) {
             .header-section { flex-direction: column; align-items: flex-start; }
             .brand-right-container { width: 100%; justify-content: space-between; }
             .users-grid { flex-direction: column; }
-            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
-            .footer-col.right { text-align: center; }
         }
 
         /* ==========================================
-           GROENE WHATSAPP CHAT KNOP STYLING (NIEUW)
+           GROENE WHATSAPP CHAT KNOP STYLING
            ========================================== */
-        .whatsapp-launcher {
+        .whatsapp-button {
             position: fixed;
             bottom: 25px;
             right: 25px;
@@ -269,16 +210,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            color: white;
-            text-decoration: none;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 9999;
-            transition: transform 0.2s ease, background-color 0.2s;
+            z-index: 99999;
+            transition: transform 0.2s ease;
         }
-        .whatsapp-launcher:hover {
-            transform: scale(1.08);
-            background-color: #128c7e;
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+        .whatsapp-button svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
         }
     </style>
 </head>
@@ -305,9 +247,10 @@
         <!-- Titel -->
         <div class="page-title">Wie is online? in opbouw dit is test software werkt al vervest om het uur das nog wat geduld hebben aub</div>
 
-        <!-- Gebruikers Tabellen Grid -->
+        <!-- Gebruikers Grid -->
         <div class="users-grid">
-            <!-- Online Panel -->
+            
+            <!-- Online Tabel -->
             <div class="panel">
                 <div class="panel-header">
                     <span class="dot online"></span>Online gebruikers
@@ -322,5 +265,38 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Je software vult dit automatisch aan -->
                             <tr><td>0432.550+ OPROEPKANAAL</td><td class="status-online">Online</td><td>Zojuist</td></tr>
                             <tr><td>ON0PAJ REEATER</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Offline Tabel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="dot offline"></span>Offline gebruikers
+                </div>
+                <div class="table-wrapper">
+                    <table class="status-table">
+                        <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Status</th>
+                                <th>Laatst Online</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Je software vult dit automatisch aan -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div> <!-- Einde users-grid -->
+    </div> <!-- Einde container -->
+
+    <!-- De Zwevende WhatsApp Knop -->
+    <a href="https://wa.me..." class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24">
