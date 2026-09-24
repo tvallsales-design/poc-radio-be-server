@@ -101,25 +101,12 @@
             font-size: 20px;
         }
 
-        /* Titel & Zoeken */
+        /* Titel */
         .page-title { 
             font-size: 32px; 
             font-weight: 700; 
-            margin: 0 0 20px 0; 
+            margin: 0 0 25px 0; 
             color: #ffffff;
-        }
-
-        .search-box {
-            width: 100%; 
-            max-width: 450px; 
-            background-color: #141b2d;
-            border: 1px solid #243354; 
-            border-radius: 8px; 
-            padding: 12px 16px;
-            color: #ffffff; 
-            font-size: 15px; 
-            margin-bottom: 35px;
-            outline: none;
         }
 
         /* Grid Layout */
@@ -135,7 +122,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 550px; 
+            height: 480px; 
             display: flex; 
             flex-direction: column;
         }
@@ -196,13 +183,6 @@
             border-bottom: 1px solid #1e293b; 
         }
 
-        .no-users-row {
-            color: #64748b;
-            font-style: italic;
-            text-align: center;
-            padding: 40px 0 !important;
-        }
-
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
         
@@ -213,7 +193,7 @@
             margin-bottom: 40px; 
         }
         
-        /* Footer Layout */
+        /* Gecorrigeerde Footer Layout (Mooi verdeeld over 3 kolommen) */
         .footer-section { 
             border-top: 1px solid #1e293b; 
             padding-top: 30px; 
@@ -222,6 +202,17 @@
             font-size: 13px; 
             color: #94a3b8; 
             line-height: 1.6;
+            gap: 20px;
+        }
+
+        .footer-col {
+            flex: 1;
+        }
+        .footer-col.center {
+            text-align: center;
+        }
+        .footer-col.right {
+            text-align: right;
         }
 
         .footer-left-sub {
@@ -245,9 +236,8 @@
             text-decoration: underline;
         }
 
-        .footer-center { text-align: center; }
-        .footer-center a { color: #00bcff; text-decoration: none; font-weight: 600; }
-        .footer-center a:hover { text-decoration: underline; }
+        .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
+        .footer-col a:hover { text-decoration: underline; }
 
         .global-ptt-logo { color: #00bcff; font-weight: 700; }
 
@@ -256,6 +246,7 @@
             .brand-right-container { width: 100%; justify-content: space-between; }
             .users-grid { flex-direction: column; }
             .footer-section { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-col.right { text-align: center; }
         }
     </style>
 </head>
@@ -272,77 +263,47 @@
             </div>
             <div class="brand-right-container">
                 <div class="brand-right">
-                    <div class="main-title">GLOBAL-PTT</div>
+                    <div class="main-title">GLOBAL-PTTT</div>
                     <div class="sub-title">NETWORK & INFRASTRUCTURE</div>
                 </div>
                 <div class="header-logo-icon">🌐</div>
             </div>
         </div>
 
-        <!-- Titel & Zoeken -->
+        <!-- Titel -->
         <div class="page-title">Wie is online?</div>
-        <input type="text" id="search" class="search-box" placeholder="Typ hier om te zoeken naar radio's..." oninput="updateTabellen()">
 
         <!-- Gebruikers Status Overzicht -->
         <div class="users-grid">
-            <!-- Online Kolom -->
+            <!-- Online Kolom (Exact volgens jouw afbeelding) -->
             <div class="panel">
                 <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr><th>ON3OSI</th><th>Status</th><th>Laatst online</th></tr>
-                             <tr><th>ON4ARV</th><th>Status</th><th>Laatst online</th></tr>
-                             <tr><th>ON3GBH</th><th>Status</th><th>Laatst online</th></tr>
-                             <tr><th>ON2ACO</th><th>Status</th><th>Laatst online</th></tr>
-                             <tr><th>ON3BPA</th><th>Status</th><th>Laatst online</th></tr>
-                             <tr><th>ON7GY</th><th>Status</th><th>Laatst online</th></tr>
-                             
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
-                        <tbody id="online-users">
-                            <!-- Javascript bouwt dit direct in -->
+                        <tbody>
+                            <tr><td><strong>ON3OSI</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON4ARV</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3GBH</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON2ACO</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td><strong>ON7GY</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Offline Kolom -->
+            <!-- Offline Kolom (Exact volgens jouw afbeelding) -->
             <div class="panel">
                 <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr><th>ON2BV</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON2PJ</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3BEA</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3BHL</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3DGB</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3DGM</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ONGBH</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3GDV</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3GHZ</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON3NLY</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON8PMO</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON5LUC</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON7AL</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON6ER</th><th>Status</th><th>Laatst online</th></tr>
-                            <tr><th>ON7DAN</th><th>Status</th><th>Laatst online</th></tr>
+                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
                         </thead>
-                        <tbody id="offline-users">
-                            <!-- Javascript bouwt dit direct in -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-note">🔒 IMEI, batterij en GPS worden niet openbaar getoond</div>
-
-        <div class="footer-section">
-            <div>
-                <strong>POC RADIO BE</strong><br>
-                <span class="footer-left-sub">VERKOOP - VERHUUR - SERVICE - SUPPORT</span><br>
-                <a href="https://on3osi.be" target="_blank" class="footer-website-link">🌐 Bezoek on3osi.be</a>
-            </div>
-            <div class="footer-center">
-                📬 <strong>Contact - POC RADIO BE</strong><br>
+                        <tbody>
+                            <tr><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON2PJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
+                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
