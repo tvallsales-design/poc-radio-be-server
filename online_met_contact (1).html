@@ -29,7 +29,7 @@
         }
 
         .container { 
-            max-width: 1400px; /* Iets breder gemaakt voor de 3 kolommen */
+            max-width: 1600px; 
             margin: 0 auto; 
             padding: 30px 20px; 
         }
@@ -122,7 +122,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 520px; /* Iets verhoogd voor een betere weergave van lijsten */
+            height: 550px; 
             display: flex; 
             flex-direction: column;
         }
@@ -146,7 +146,7 @@
         
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
-        .dot.repeater { background-color: #00bcff; } /* Speciale blauwe kleur voor repeaters */
+        .dot.repeater { background-color: #00bcff; } 
         
         /* Netjes scrollen binnen de panels */
         .table-wrapper { 
@@ -185,21 +185,13 @@
             border-bottom: 1px solid #1e293b; 
         }
 
-        /* Vaste kolombreedtes tegen verspringen */
-        .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 45%; }
+        .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 50%; }
         .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 25%; }
-        .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 30%; }
+        .status-table th:nth-child(3), .status-table td:nth-child(3) { width: 25%; }
 
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
         .status-repeater { color: #00bcff; font-weight: 600; }
-        
-        .info-note { 
-            font-size: 12px; 
-            color: #475569; 
-            text-align: center; 
-            margin-bottom: 40px; 
-        }
         
         /* Footer Layout stabiel over 3 kolommen */
         .footer-section { 
@@ -234,7 +226,7 @@
         .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
         .footer-col a:hover { text-decoration: underline; }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
             .users-grid { flex-direction: column; }
             .header-section { flex-direction: column; align-items: flex-start; }
             .brand-right-container { width: 100%; justify-content: space-between; }
@@ -305,3 +297,6 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr><td>O432.550+ CLUB SNW</td><td class="status-repeater">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON0PAJ REPEATER</td><td class="status-repeater">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON0WL REPEATER</td><td class="status-repeater">Online</td><td>Zojuist</td></tr>
