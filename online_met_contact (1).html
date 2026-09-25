@@ -29,7 +29,7 @@
         }
 
         .container { 
-            max-width: 1200px; 
+            max-width: 1400px; /* Iets breder gemaakt voor de 3 kolommen */
             margin: 0 auto; 
             padding: 30px 20px; 
         }
@@ -109,7 +109,7 @@
             color: #ffffff;
         }
 
-        /* Grid Layout */
+        /* Grid Layout hersteld naar 3 Kolommen */
         .users-grid { 
             display: flex; 
             gap: 24px; 
@@ -122,7 +122,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 24px; 
-            height: 460px; /* Vaste hoogte houdt de layout strak en symmetrisch */
+            height: 520px; /* Iets verhoogd voor een betere weergave van lijsten */
             display: flex; 
             flex-direction: column;
         }
@@ -146,6 +146,7 @@
         
         .dot.online { background-color: #10b981; }
         .dot.offline { background-color: #ef4444; }
+        .dot.repeater { background-color: #00bcff; } /* Speciale blauwe kleur voor repeaters */
         
         /* Netjes scrollen binnen de panels */
         .table-wrapper { 
@@ -191,6 +192,7 @@
 
         .status-online { color: #10b981; font-weight: 600; }
         .status-offline { color: #ef4444; font-weight: 600; }
+        .status-repeater { color: #00bcff; font-weight: 600; }
         
         .info-note { 
             font-size: 12px; 
@@ -229,28 +231,13 @@
             display: inline-block;
         }
 
-        .footer-website-link {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 12px;
-            display: inline-block;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-        .footer-website-link:hover {
-            color: #00bcff;
-            text-decoration: underline;
-        }
-
         .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
         .footer-col a:hover { text-decoration: underline; }
 
-        .global-ptt-logo { color: #00bcff; font-weight: 700; }
-
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            .users-grid { flex-direction: column; }
             .header-section { flex-direction: column; align-items: flex-start; }
             .brand-right-container { width: 100%; justify-content: space-between; }
-            .users-grid { flex-direction: column; }
             .footer-section { flex-direction: column; gap: 30px; text-align: center; }
             .footer-col.right { text-align: center; }
         }
@@ -258,8 +245,7 @@
 </head>
 <body>
 
-    <div class="top-banner">Always Connected by POC Radio BE
-    MET DANK AAN ON3OSI EN ON3BEA</div>
+    <div class="top-banner">Always Connected by POC Radio BE Met dank aan ON3OSI en ON3BEA</div>
 
     <div class="container">
         <!-- Header -->
@@ -278,92 +264,44 @@
         </div>
 
         <!-- Titel -->
-        <div class="page-title">Wie is online?        in opbouw dit is test software
-         werkt al vervest om het uur das nog wat geduld hebben aub </div>
+        <h2 class="page-title">Wie is online? <span style="font-size: 14px; font-weight: normal; color: #64748b;">(Test software - ververst om het uur)</span></h2>
 
-        <!-- Gebruikers Status Overzicht -->
+        <!-- Drie Kolommen Grid -->
         <div class="users-grid">
-            <!-- Online Kolom -->
+            
+            <!-- Kolom 1: Online Gebruikers -->
             <div class="panel">
-                <div class="panel-header"><span class="dot online"></span> Online gebruikers</div>
+                <div class="panel-header"><span class="dot online"></span>Online Gebruikers</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
+                            <tr>
+                                <th>Naam</th>
+                                <th>Status</th>
+                                <th>Laatst online</th>
+                            </tr>
                         </thead>
                         <tbody>
-                             <tr><td><strong>O432.550+ OPROEPKANAAL</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                        <tr><td><strong>OSI DISPATCH</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td><strong>ON0PAJ REEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td><strong>ON0WL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td><strong>ON0GAL REPEATER</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            
-                            
-                             
-                            
-                            <tr><td><strong>ON3DGH</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td><strong>ON3OSI</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            
-                            
-                            
-                            <tr><td><strong>ON3BPA</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            <tr><td><strong>ON3RK</strong></td><td class="status-online">Online</td><td>Zojuist</td></tr>
-                            
+                            <tr><td>OSI DISPATCH</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON3DGH</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON3OSI</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON3BPA</td><td class="status-online">Online</td><td>Zojuist</td></tr>
+                            <tr><td>ON3RK</td><td class="status-online">Online</td><td>Zojuist</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Offline Kolom -->
+            <!-- Kolom 2: Repeaters & Clubkanalen -->
             <div class="panel">
-                <div class="panel-header"><span class="dot offline"></span> Offline gebruikers</div>
+                <div class="panel-header"><span class="dot repeater"></span>Repeaters & Clubs</div>
                 <div class="table-wrapper">
                     <table class="status-table">
                         <thead>
-                            <tr><th>Naam</th><th>Status</th><th>Laatst online</th></tr>
+                            <tr>
+                                <th>Station</th>
+                                <th>Status</th>
+                                <th>Laatst online</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            
-                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON8PMO</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7AL</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3BEA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON2BV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3NLY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON6ER</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON2PJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3DGB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3GHZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3PHB</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7MA</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3PV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3PVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3RK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3SD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON3TTR</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4AIM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4BWT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4CHJ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4LK</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON4WZ</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON5AVM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON5GF</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON5LNS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON5LUC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON6GPS</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON6VE</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7ARW</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7DAN</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7KY</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7RVV</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7UC</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7UDM</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON7XD</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-                            <tr><td><strong>ON8NT</strong></td><td class="status-offline">Offline</td><td>-</td></tr>
-    
-
-
-       
-                            
