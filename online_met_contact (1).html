@@ -60,12 +60,6 @@
             font-weight: 500;
         }
 
-        .nav-links span { 
-            margin-right: 15px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-
         .brand-right-container {
             display: flex;
             align-items: center;
@@ -109,7 +103,7 @@
             color: #ffffff;
         }
 
-        /* Grid Layout strak over 3 kolommen */
+        /* Grid Layout strak verdeeld over 3 gelijke kolommen */
         .users-grid { 
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -135,6 +129,8 @@
             display: flex; 
             align-items: center; 
             color: #ffffff;
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 10px;
         }
 
         .dot { 
@@ -149,49 +145,30 @@
         .dot.offline { background-color: #ef4444; }
         .dot.repeater { background-color: #00bcff; } 
         
-        /* Scrollbar styling */
-        .table-wrapper { 
+        /* Scrollbare lijst */
+        .list-wrapper { 
             flex: 1; 
             overflow-y: auto; 
             padding-right: 5px;
         }
 
-        .table-wrapper::-webkit-scrollbar { width: 6px; }
-        .table-wrapper::-webkit-scrollbar-track { background: transparent; }
-        .table-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
+        .list-wrapper::-webkit-scrollbar { width: 6px; }
+        .list-wrapper::-webkit-scrollbar-track { background: transparent; }
+        .list-wrapper::-webkit-scrollbar-thumb { background: #243354; border-radius: 10px; }
 
-        .status-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-size: 14px; 
-            color: #e2e8f0; 
-            text-align: left; 
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #1e293b;
+            font-size: 14px;
+            color: #e2e8f0;
         }
 
-        .status-table th { 
-            padding-bottom: 12px; 
-            font-weight: 600; 
-            border-bottom: 2px solid #1e293b; 
-            color: #94a3b8; 
-            text-transform: uppercase;
-            font-size: 11px;
-            position: sticky;
-            top: 0;
-            background-color: #141b2d;
-            z-index: 1;
-        }
-
-        .status-table td { 
-            padding: 12px 0; 
-            border-bottom: 1px solid #1e293b; 
-        }
-
-        .status-table th:nth-child(1), .status-table td:nth-child(1) { width: 65%; }
-        .status-table th:nth-child(2), .status-table td:nth-child(2) { width: 35%; }
-
-        .status-online { color: #10b981; font-weight: 600; }
-        .status-offline { color: #ef4444; font-weight: 600; }
-        .status-repeater { color: #00bcff; font-weight: 600; }
+        .status-text.online { color: #10b981; font-weight: 600; }
+        .status-text.offline { color: #ef4444; font-weight: 600; }
+        .status-text.repeater { color: #00bcff; font-weight: 600; }
         
         /* Footer Layout */
         .footer-section { 
@@ -205,34 +182,10 @@
             gap: 20px;
         }
 
-        .footer-col {
-            flex: 1;
-        }
-        .footer-col.center {
-            text-align: center;
-        }
-        .footer-col.right {
-            text-align: right;
-        }
-
-        .footer-left-sub {
-            font-size: 10px; 
-            color: #475569; 
-            font-weight: 600; 
-            margin-top: 4px;
-            display: inline-block;
-        }
-
+        .footer-col { flex: 1; }
+        .footer-col.center { text-align: center; }
+        .footer-col.right { text-align: right; }
         .footer-col a { color: #00bcff; text-decoration: none; font-weight: 600; }
-        .footer-col a:hover { text-decoration: underline; }
-
-        @media (max-width: 1024px) {
-            .users-grid { grid-template-columns: 1fr; }
-            .header-section { flex-direction: column; align-items: flex-start; }
-            .brand-right-container { width: 100%; justify-content: space-between; }
-            .footer-section { flex-direction: column; gap: 30px; text-align: center; }
-            .footer-col.right { text-align: center; }
-        }
     </style>
 </head>
 <body>
@@ -244,7 +197,7 @@
         <div class="header-section">
             <div class="logo-area">
                 <h1>POC RADIO BE</h1>
-                <div class="nav-links"><span>Verkoop</span> • <span>Verhuur</span> • <span>Service</span> • <span>Support</span>tel 0496344212</div>
+                <div class="nav-links">Verkoop • Verhuur • Service • Support tel 0496344212</div>
             </div>
             <div class="brand-right-container">
                 <div class="brand-right">
@@ -264,45 +217,42 @@
             <!-- Kolom 1: Online Gebruikers -->
             <div class="panel">
                 <div class="panel-header"><span class="dot online"></span>Online Gebruikers</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead>
-                            <tr>
-                                <th>Naam</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>OSI DISPATCH</td><td class="status-online">Online</td></tr>
-                            <tr><td>ON3DGH</td><td class="status-online">Online</td></tr>
-                            <tr><td>ON3OSI</td><td class="status-online">Online</td></tr>
-                            <tr><td>ON3BPA</td><td class="status-online">Online</td></tr>
-                            <tr><td>ON3RK</td><td class="status-online">Online</td></tr>
-                        </tbody>
-                    </table>
+                <div class="list-wrapper">
+                    <div class="user-item"><span>OSI DISPATCH</span><span class="status-text online">Online</span></div>
+                    <div class="user-item"><span>ON3DGH</span><span class="status-text online">Online</span></div>
+                    <div class="user-item"><span>ON3OSI</span><span class="status-text online">Online</span></div>
+                    <div class="user-item"><span>ON3BPA</span><span class="status-text online">Online</span></div>
+                    <div class="user-item"><span>ON3RK</span><span class="status-text online">Online</span></div>
                 </div>
             </div>
 
             <!-- Kolom 2: Repeaters & Clubkanalen -->
             <div class="panel">
                 <div class="panel-header"><span class="dot repeater"></span>Repeaters & Clubs</div>
-                <div class="table-wrapper">
-                    <table class="status-table">
-                        <thead>
-                            <tr>
-                                <th>Station</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>O432.550+ CLUB SNW</td><td class="status-repeater">Online</td></tr>
-                            <tr><td>ON0PAJ REPEATER</td><td class="status-repeater">Online</td></tr>
-                            <tr><td>ON0WL REPEATER</td><td class="status-repeater">Online</td></tr>
-                            <tr><td>ON0GAL REPEATER</td><td class="status-repeater">Online</td></tr>
-                        </tbody>
-                    </table>
+                <div class="list-wrapper">
+                    <div class="user-item"><span>O432.550+ CLUB SNW</span><span class="status-text repeater">Online</span></div>
+                    <div class="user-item"><span>ON0PAJ REPEATER</span><span class="status-text repeater">Online</span></div>
+                    <div class="user-item"><span>ON0WL REPEATER</span><span class="status-text repeater">Online</span></div>
+                    <div class="user-item"><span>ON0GAL REPEATER</span><span class="status-text repeater">Online</span></div>
                 </div>
             </div>
 
             <!-- Kolom 3: Offline Gebruikers -->
             <div class="panel">
+                <div class="panel-header"><span class="dot offline"></span>Offline Gebruikers</div>
+                <div class="list-wrapper">
+                    <div class="user-item"><span>O P 0 J POC</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON1ZV</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON2ACO</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON2BV</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON2PJ</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3BEA</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3BHL</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3DB</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3DF</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3EMD</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3GBH</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3GHZ</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3NLY</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3PHB</span><span class="status-text offline">Offline</span></div>
+                    <div class="user-item"><span>ON3PV</span><span class="status-text offline">Offline</span></div>
