@@ -95,12 +95,35 @@
             font-size: 20px;
         }
 
-        /* Titel */
+        /* Titel & Knoppen */
+        .title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
         .page-title { 
             font-size: 32px; 
             font-weight: 700; 
-            margin: 0 0 25px 0; 
+            margin: 0; 
             color: #ffffff;
+        }
+
+        .btn-refresh {
+            background: #1e293b;
+            color: #ffffff;
+            border: 1px solid #334155;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-refresh:hover {
+            background: #334155;
         }
 
         /* Grid Layout strak verdeeld over 3 gelijke kolommen */
@@ -117,7 +140,7 @@
             border: 1px solid #1e293b;
             border-radius: 12px; 
             padding: 20px; 
-            height: 550px; 
+            height: 600px; 
             display: flex; 
             flex-direction: column;
         }
@@ -170,6 +193,12 @@
         .status-text.offline { color: #ef4444; font-weight: 600; }
         .status-text.repeater { color: #00bcff; font-weight: 600; }
         
+        .loading-text {
+            color: #64748b;
+            font-style: italic;
+            padding: 10px 0;
+        }
+
         /* Footer Layout */
         .footer-section { 
             border-top: 1px solid #1e293b; 
@@ -208,8 +237,11 @@
             </div>
         </div>
 
-        <!-- Titel -->
-        <h2 class="page-title">Wie is online? <span style="font-size: 14px; font-weight: normal; color: #64748b;">(Test software - ververst om het uur)</span></h2>
+        <!-- Titel Sectie met live sync tijd -->
+        <div class="title-area">
+            <h2 class="page-title">Wie is online? <span id="sync-time" style="font-size: 14px; font-weight: normal; color: #64748b;">(Laden...)</span></h2>
+            <button class="btn-refresh" onclick="fetchLiveRadioData()">Nu Vernieuwen</button>
+        </div>
 
         <!-- Drie Kolommen Grid -->
         <div class="users-grid">
@@ -217,42 +249,60 @@
             <!-- Kolom 1: Online Gebruikers -->
             <div class="panel">
                 <div class="panel-header"><span class="dot online"></span>Online Gebruikers</div>
-                <div class="list-wrapper">
-                    <div class="user-item"><span>OSI DISPATCH</span><span class="status-text online">Online</span></div>
-                   
-                    <div class="user-item"><span>ON3OSI</span><span class="status-text online">Online</span></div>
-                    <div class="user-item"><span>ON3BPA</span><span class="status-text online">Online</span></div>
-                    
+                <div class="list-wrapper" id="online-users-list">
+                    <div class="loading-text">Wachten op data...</div>
                 </div>
             </div>
 
             <!-- Kolom 2: Repeaters & Clubkanalen -->
             <div class="panel">
                 <div class="panel-header"><span class="dot repeater"></span>Repeaters & Clubs</div>
-                <div class="list-wrapper">
-                    <div class="user-item"><span>O432.550+ CLUB SNW</span><span class="status-text repeater">Online</span></div>
-                    <div class="user-item"><span>ON0PAJ REPEATER</span><span class="status-text repeater">Online</span></div>
-                    <div class="user-item"><span>ON0WL REPEATER</span><span class="status-text repeater">Online</span></div>
-                    <div class="user-item"><span>ON0GAL REPEATER</span><span class="status-text repeater">Online</span></div>
+                <div class="list-wrapper" id="repeaters-list">
+                    <div class="loading-text">Wachten op data...</div>
                 </div>
             </div>
 
             <!-- Kolom 3: Offline Gebruikers -->
             <div class="panel">
                 <div class="panel-header"><span class="dot offline"></span>Offline Gebruikers</div>
-                <div class="list-wrapper">
-                    <div class="user-item"><span>O P 0 J POC</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON1ZV</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON2ACO</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON2BV</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON2PJ</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3BEA</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3BHL</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3DB</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3DF</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3EMD</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3GBH</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3GHZ</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3NLY</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3PHB</span><span class="status-text offline">Offline</span></div>
-                    <div class="user-item"><span>ON3PV</span><span class="status-text offline">Offline</span></div>
+                <div class="list-wrapper" id="offline-users-list">
+                    <div class="loading-text">Wachten op data...</div>
+                </div>
+            </div>
+
+        </div> <!-- Einde users-grid -->
+
+        <div class="footer-section">
+            <div class="footer-col">
+                <strong>POC RADIO BE</strong><br>
+                <span style="font-size: 10px; color: #475569;">Ondersteund door GLOBAL-PTT infrastructuur</span>
+            </div>
+            <div class="footer-col center">Ondersteuning nodig? Contacteer ons via support.</div>
+            <div class="footer-col right">Email: <a href="mailto:pocradiobe@hotmail.com">pocradiobe@hotmail.com</a></div>
+        </div>
+
+    </div> <!-- Einde container -->
+
+    <!-- API KOPPELING SCRIPT -->
+    <script>
+        // Vul hier het pad in naar jouw Synology API script (bijv. api.php of get_status.php)
+        const API_ENDPOINT = 'api.php'; 
+
+        async function fetchLiveRadioData() {
+            try {
+                const response = await fetch(API_ENDPOINT);
+                if (!response.ok) throw new Error('Netwerkfout bij ophalen API data');
+                const data = await response.json();
+                
+                // Elementen leegmaken voor de nieuwe invoer
+                document.getElementById('online-users-list').innerHTML = '';
+                document.getElementById('repeaters-list').innerHTML = '';
+                document.getElementById('offline-users-list').innerHTML = '';
+
+                // Loop door alle apparaten uit de GLOBAL-PTT API
+                data.forEach(radio => {
+                    const name = radio.name.toUpperCase();
+                    const isOnline = radio.status === 'online' || radio.status === 1;
+                    
+                    // HTML structuur aanmaken voor de regel
+                    const item = document.createElement('div');
